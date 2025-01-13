@@ -1,6 +1,0 @@
-/home/cyphics/ownCloud/programming/algo/build/CMakeFiles/algorithms.dir
-/home/cyphics/ownCloud/programming/algo/build/CMakeFiles/edit_cache.dir
-/home/cyphics/ownCloud/programming/algo/build/CMakeFiles/rebuild_cache.dir
-/home/cyphics/ownCloud/programming/algo/build/lib/CMakeFiles/algo.dir
-/home/cyphics/ownCloud/programming/algo/build/lib/CMakeFiles/edit_cache.dir
-/home/cyphics/ownCloud/programming/algo/build/lib/CMakeFiles/rebuild_cache.dir
