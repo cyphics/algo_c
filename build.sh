@@ -1,7 +1,9 @@
+set -e
+
 mkdir -p build/
 cd build/
 
-make ..
+cmake ..
 cmake --build .
 
 ./algo_test

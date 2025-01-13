@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 project(algo_lib VERSION 1.0)
 
-add_library(algo_lib algo_lib.c)
+add_library(algo_lib algo_lib.c helpers.c)
 
 # state that anybody linking to us needs to include the current source dir
 # to find MathFunctions.h, while we don't.
