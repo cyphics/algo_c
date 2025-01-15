@@ -23,5 +23,6 @@ void SLLAppend(SingleLinkedList *list, int value);
 void SLLPrepend(SingleLinkedList *list, int value);
 int SLLGet(SingleLinkedList *list, int index);
 int SLLRemoveAt(SingleLinkedList *list, int index);
+bool SLLRemove(SingleLinkedList *list, int value);
 
 extern const struct library Sorting;

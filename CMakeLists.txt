@@ -13,6 +13,6 @@ target_include_directories(algo_lib
 
 add_executable(algo_test algo_test.c)
 target_link_libraries(algo_test PUBLIC algo_lib)
-set_target_properties(algo_test PROPERTIES LINK_FLAGS -lcunit)
+set_target_properties(algo_test PROPERTIES LINK_FLAGS -lcunit -fsanitize=undefined -fsanitize-trap)
 
 target_include_directories(algo_lib PUBLIC "${PROJECT_BINARY_DIR}")

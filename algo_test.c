@@ -69,7 +69,8 @@ void test_SingleLinkedList() {
 
   SLLAppend(&list, 11);
   CU_ASSERT(SLLRemoveAt(&list, 1) == 7);
-  /*CU_ASSERT(SLLRemove(&list, 9) == NULL);*/
+  CU_ASSERT(!SLLRemove(&list, 9));
+  CU_ASSERT(SLLGet(&list, 2) == 0);
   CU_ASSERT(SLLRemoveAt(&list, 0) == 5);
   CU_ASSERT(SLLRemoveAt(&list, 0) == 11);
   CU_ASSERT(list.length == 0);
@@ -81,8 +82,8 @@ void test_SingleLinkedList() {
   CU_ASSERT(SLLGet(&list, 2) == 5);
   CU_ASSERT(SLLGet(&list, 1) == 7);
   CU_ASSERT(SLLGet(&list, 0) == 9);
-  /*CU_ASSERT(SLLRemove(&list, 9) == 9);*/
-  CU_ASSERT(list.length == 3);
+  CU_ASSERT(SLLRemove(&list, 9));
+  CU_ASSERT(list.length == 2);
 }
 
 int main() {

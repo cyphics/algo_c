@@ -95,6 +95,7 @@ void SLLPrint(SingleLinkedList *list) {
 
 int SLLGet(SingleLinkedList *list, int index) {
   if (index >= list->length) {
+    printf("WARNING! Out-of-boud access attempt with SLLGet\n");
     return 0;
   }
   SLLNode *current = list->head;
@@ -107,13 +108,14 @@ int SLLGet(SingleLinkedList *list, int index) {
 }
 int SLLRemoveAt(SingleLinkedList *list, int index) {
   if (index >= list->length) {
+    printf("WARNING! Out-of-boud access attempt with SLLGet\n");
     return 0;
   }
-  int value;
+  int result;
   if (index == 0) {
     SLLNode *to_delete = list->head;
     list->head = list->head->next;
-    value = to_delete->value;
+    result = to_delete->value;
     free(to_delete);
   } else {
     SLLNode *current = list->head;
@@ -124,11 +126,11 @@ int SLLRemoveAt(SingleLinkedList *list, int index) {
     SLLNode *to_delete = previous->next;
     SLLNode *next = to_delete->next;
     previous->next = next;
-    value = to_delete->value;
+    result = to_delete->value;
     free(to_delete);
   }
   list->length--;
-  return value;
+  return result;
 }
 
 void SLLPrepend(SingleLinkedList *list, int value) {
@@ -137,4 +139,16 @@ void SLLPrepend(SingleLinkedList *list, int value) {
   new->next = list->head;
   list->head = new;
   list->length++;
+}
+
+// Remove first node containing the <value>
+bool SLLRemove(SingleLinkedList *list, int value) {
+  SLLNode *current = list->head;
+  for(int i = 0; i < list->length; i++) {
+    if (current->value == value) {
+      SLLRemoveAt(list, i);
+      return true;
+    }
+  }
+  return false;
 }
