@@ -83,8 +83,8 @@ void SLLInitialize(SingleLinkedList *list) {
 
 void SLLPrintNode(SLLNode *node) {
   printf("Value: %d\n", node->value);
-  printf("Address: %p\n", node);
-  printf("Next: %p\n", node->next);
+  printf("Address: %p\n", (void *)node);
+  printf("Next: %p\n", (void *)node->next);
 }
 
 /**
@@ -163,6 +163,22 @@ int SLLGetAt(SingleLinkedList *list, int index) {
   return current->value;
 }
 
+int SLLGetLast(SingleLinkedList *list) {
+  if (list->head == NULL) {
+    printf("WARNING: SLLGetLast attempt on empty list.\n");
+    return 0;
+  }
+  SLLNode *current = list->head;
+  while (current->next != NULL) {
+    current = current->next;
+  }
+  return current->value;
+}
+
+int SLLPeek(SingleLinkedList *list) {
+  return SLLGetAt(list, 0);
+}
+
 /**
  * @brief Remove the node at the <index> location.
  *
@@ -231,4 +247,3 @@ void SLLClear(SingleLinkedList *list) {
   list->length--;
   list->head = NULL;
 }
-

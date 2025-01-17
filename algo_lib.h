@@ -25,5 +25,6 @@ int  SLLGetAt(SingleLinkedList *list, int index);
 int  SLLRemoveAt(SingleLinkedList *list, int index);
 bool SLLRemove(SingleLinkedList *list, int value);
 void SLLClear(SingleLinkedList *list);
+int SLLGetLast(SingleLinkedList *list);
 
 extern const struct library Sorting;

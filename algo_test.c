@@ -82,20 +82,20 @@ void test_SingleLinkedList(void) {
   SLLPrepend(&list, 5);
   SLLPrepend(&list, 7);
   SLLPrepend(&list, 9);
-  /**/
+
+  CU_ASSERT(SLLGetLast(&list) == 9);
+
   CU_ASSERT(SLLGetAt(&list, 2) == 5);
   CU_ASSERT(SLLGetAt(&list, 1) == 7);
   CU_ASSERT(SLLGetAt(&list, 0) == 9);
   CU_ASSERT(SLLRemove(&list, 9));
   CU_ASSERT(list.length == 2);
   CU_ASSERT(SLLRemoveAt(&list, 9) == 0);
-  SLLPrint(&list);
 
-  
-  /*CU_ASSERT(SLLPop(*list) == );*/
-
-  // TODO Add SLLClear(list)
   SLLClear(&list);
+  CU_ASSERT(list.length == 0);
+
+
 }
 
 void TestPrint(void) {
@@ -114,26 +114,16 @@ void TestPrint(void) {
   SLLPrint(&list);
 }
 
-void TestMemoryLeak(void) {
-  struct SingleLinkedList list;
-  SLLInitialize(&list);
-  SLLAppend(&list, 3);
-  SLLPrint(&list);
-  /*SLLClear(&list);*/
-  /*SLLPrint(&list);*/
-}
-
 int main(void) {
-  /*CU_initialize_registry();*/
-  /*CU_pSuite suite = CU_add_suite("Sorting", 0, 0);*/
-  /*CU_add_test(suite, "IndexOf", test_IndexOf);*/
-  /*CU_add_test(suite, "IndexOfSorted", test_IndexOfSorted);*/
-  /*CU_add_test(suite, "BubbleSort", test_BubbleSort);*/
-  /*CU_add_test(suite, "SingleLinkedList", test_SingleLinkedList);*/
-  /*CU_add_test(suite, "Sorting", test_sorting);*/
-  /*CU_basic_run_tests();*/
-  /*CU_cleanup_registry();*/
-  /*TestMemoryLeak();*/
-  TestPrint();
+  CU_initialize_registry();
+  CU_pSuite suite = CU_add_suite("Sorting", 0, 0);
+  CU_add_test(suite, "IndexOf", test_IndexOf);
+  CU_add_test(suite, "IndexOfSorted", test_IndexOfSorted);
+  CU_add_test(suite, "BubbleSort", test_BubbleSort);
+  CU_add_test(suite, "SingleLinkedList", test_SingleLinkedList);
+  CU_add_test(suite, "Sorting", test_sorting);
+  CU_basic_run_tests();
+  CU_cleanup_registry();
+  /*TestPrint();*/
   return 0;
 }
