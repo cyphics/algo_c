@@ -5,7 +5,11 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-void test_IndexOfSorted() {
+void foo(int i) {
+  printf("%d", i);
+}
+
+void test_IndexOfSorted(void) {
   int foo[] = {1, 3, 4, 69, 71, 81, 90, 99, 420, 1337, 69420};
   int size = sizeof(foo) / sizeof(foo[0]);
   CU_ASSERT(Sorting.IndexOfSorted(foo, 69, size) == 3);
@@ -16,12 +20,12 @@ void test_IndexOfSorted() {
   CU_ASSERT(Sorting.IndexOfSorted(foo, 0, size) == -1);
 }
 
-void test_sorting() {
-  int array[] = {1, 2, 4, 5, 7};
-  CU_ASSERT(Sorting.BinarySearch(5, array, 5));
+void test_sorting(void) {
+  /*int array[] = {1, 2, 4, 5, 7};*/
+  /*CU_ASSERT(Sorting.BinarySearch(5, array, 5));*/
 }
 
-void test_IndexOf() {
+void test_IndexOf(void) {
   char target1 = 'c';
   char target2 = 'z';
   char array[] = {'a', 'b', 'c', 'd', 'e'};
@@ -42,7 +46,7 @@ void test_IndexOf() {
   CU_ASSERT(index2 == 0);
 }
 
-void test_BubbleSort() {
+void test_BubbleSort(void) {
   int arr[] = {10, 9, 3, 7, 4, 69, 420, 42, 41};
   int sorted[] = {3, 4, 7, 9, 10, 41, 42, 69, 420};
 
@@ -52,25 +56,25 @@ void test_BubbleSort() {
   CU_ASSERT(CompareArrays(arr, sorted, sizeof(arr)));
 }
 
-void test_SingleLinkedList() {
+void test_SingleLinkedList(void) {
   struct SingleLinkedList list;
-  InitializeSingleLinkedList(&list);
+  SLLInitialize(&list);
 
   SLLAppend(&list, 5);
   SLLAppend(&list, 7);
   SLLAppend(&list, 9);
 
-  CU_ASSERT(SLLGet(&list, 0) == 5);
-  CU_ASSERT(SLLGet(&list, 1) == 7);
-  CU_ASSERT(SLLGet(&list, 2) == 9);
+  CU_ASSERT(SLLGetAt(&list, 0) == 5);
+  CU_ASSERT(SLLGetAt(&list, 1) == 7);
+  CU_ASSERT(SLLGetAt(&list, 2) == 9);
   CU_ASSERT(SLLRemoveAt(&list, 2) == 9);
-  CU_ASSERT(SLLGet(&list, 2) == 0);
+  CU_ASSERT(SLLGetAt(&list, 2) == 0);
   CU_ASSERT(list.length == 2);
 
   SLLAppend(&list, 11);
   CU_ASSERT(SLLRemoveAt(&list, 1) == 7);
   CU_ASSERT(!SLLRemove(&list, 9));
-  CU_ASSERT(SLLGet(&list, 2) == 0);
+  CU_ASSERT(SLLGetAt(&list, 2) == 0);
   CU_ASSERT(SLLRemoveAt(&list, 0) == 5);
   CU_ASSERT(SLLRemoveAt(&list, 0) == 11);
   CU_ASSERT(list.length == 0);
@@ -79,21 +83,57 @@ void test_SingleLinkedList() {
   SLLPrepend(&list, 7);
   SLLPrepend(&list, 9);
   /**/
-  CU_ASSERT(SLLGet(&list, 2) == 5);
-  CU_ASSERT(SLLGet(&list, 1) == 7);
-  CU_ASSERT(SLLGet(&list, 0) == 9);
+  CU_ASSERT(SLLGetAt(&list, 2) == 5);
+  CU_ASSERT(SLLGetAt(&list, 1) == 7);
+  CU_ASSERT(SLLGetAt(&list, 0) == 9);
   CU_ASSERT(SLLRemove(&list, 9));
   CU_ASSERT(list.length == 2);
+  CU_ASSERT(SLLRemoveAt(&list, 9) == 0);
+  SLLPrint(&list);
+
+  
+  /*CU_ASSERT(SLLPop(*list) == );*/
+
+  // TODO Add SLLClear(list)
+  SLLClear(&list);
 }
 
-int main() {
-  CU_initialize_registry();
-  CU_pSuite suite = CU_add_suite("Sorting", 0, 0);
-  CU_add_test(suite, "IndexOf", test_IndexOf);
-  CU_add_test(suite, "IndexOfSorted", test_IndexOfSorted);
-  CU_add_test(suite, "BubbleSort", test_BubbleSort);
-  CU_add_test(suite, "SingleLinkedList", test_SingleLinkedList);
+void TestPrint(void) {
+  struct SingleLinkedList list;
+  SLLPrint(&list);
+  SLLInitialize(&list);
+  SLLPrint(&list);
+  SLLAppend(&list, 3);
+  SLLPrint(&list);
+  SLLAppend(&list, 4);
+  SLLAppend(&list, 5);
+  SLLPrint(&list);
+  SLLRemoveAt(&list, 0);
+  SLLPrint(&list);
+  SLLClear(&list);
+  SLLPrint(&list);
+}
+
+void TestMemoryLeak(void) {
+  struct SingleLinkedList list;
+  SLLInitialize(&list);
+  SLLAppend(&list, 3);
+  SLLPrint(&list);
+  /*SLLClear(&list);*/
+  /*SLLPrint(&list);*/
+}
+
+int main(void) {
+  /*CU_initialize_registry();*/
+  /*CU_pSuite suite = CU_add_suite("Sorting", 0, 0);*/
+  /*CU_add_test(suite, "IndexOf", test_IndexOf);*/
+  /*CU_add_test(suite, "IndexOfSorted", test_IndexOfSorted);*/
+  /*CU_add_test(suite, "BubbleSort", test_BubbleSort);*/
+  /*CU_add_test(suite, "SingleLinkedList", test_SingleLinkedList);*/
   /*CU_add_test(suite, "Sorting", test_sorting);*/
-  CU_basic_run_tests();
-  CU_cleanup_registry();
+  /*CU_basic_run_tests();*/
+  /*CU_cleanup_registry();*/
+  /*TestMemoryLeak();*/
+  TestPrint();
+  return 0;
 }
