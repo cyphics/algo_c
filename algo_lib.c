@@ -9,66 +9,54 @@
 
 
 int IndexOf(void *target, void *array, int array_length, int size) {
-
-  for (int idx = 0; idx < array_length; idx++) {
-    char *position = (char *)array + idx * size;
-    
-    int result = memcmp(target, position, size);
-    if (!result) {
-      return idx;
+    for (int idx = 0; idx < array_length; idx++) {
+        char *position = (char *)array + idx * size;
+        int result = memcmp(target, position, size);
+        if (!result) {
+            return idx;
+        }
     }
-  }
-  return -1;
+    return -1;
 }
 
 int IndexOfSorted(int array[], int target, int length) {
-  int low = 0;
-  int high = length;
-
-  while (low < high) {
-    int m = low + (high - low) / 2;
-    if (array[m] == target) {
-      return m;
-    } else if (target < array[m]) {
-      high = m;
-    } else {
-      low = m + 1;
+    int low = 0;
+    int high = length;
+    while (low < high) {
+        int m = low + (high - low) / 2;
+        if (array[m] == target) {
+            return m;
+        } else if (target < array[m]) {
+            high = m;
+        } else {
+            low = m + 1;
+        }
     }
-  }
-  return -1;
+    return -1;
 }
 
 void BubbleSort(int arr[], int size) {
-  for (int i = 0; i < size; i++) {
-    for (int j = 0; j < size - i - 1; j++) {
-      if (arr[j] > arr[j + 1]) {
-        int tmp = arr[j];
-        arr[j] = arr[j + 1];
-        arr[j + 1] = tmp;
-      }
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                int tmp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = tmp;
+            }
+        }
     }
-  }
 }
 
-const struct library Sorting = {
-    /*.BinarySearch = BinarySearch,*/
-    .IndexOf = IndexOf,
-    .IndexOfSorted = IndexOfSorted,
-    .BubbleSort = BubbleSort,
-};
-
 SLLNode* CreateNode(void) {
-  SLLNode *node;
-  node = malloc(sizeof(SLLNode));
-  node->value = 0;
-  node->next = NULL;
-  /*printf("Allocating new node at address %p.\n", node);*/
-  return node;
+    SLLNode *node;
+    node = malloc(sizeof(SLLNode));
+    node->value = 0;
+    node->next = NULL;
+    return node;
 }
 
 void SLLFree(SLLNode *node) {
-  /*printf("Freeing node of value %d at memory %p\n", node->value, node);*/
-  free(node);
+    free(node);
 }
 
 /**
@@ -77,14 +65,14 @@ void SLLFree(SLLNode *node) {
  * @param list The list to initalize
  */
 void SLLInitialize(SingleLinkedList *list) {
-  list->length = 0;
-  list->head = NULL;
+    list->length = 0;
+    list->head = NULL;
 }
 
 void SLLPrintNode(SLLNode *node) {
-  printf("Value: %d\n", node->value);
-  printf("Address: %p\n", (void *)node);
-  printf("Next: %p\n", (void *)node->next);
+    printf("Value: %d\n", node->value);
+    printf("Address: %p\n", (void *)node);
+    printf("Next: %p\n", (void *)node->next);
 }
 
 /**
@@ -93,16 +81,16 @@ void SLLPrintNode(SLLNode *node) {
  * @param list List to print
  */
 void SLLPrint(SingleLinkedList *list) {
-  if (list->head == NULL) {
-    printf("List is empty.\n");
-    return;
-  } 
-  SLLNode *current = list->head;
-  while(current != NULL) {
-    printf("%d -> ", current->value);
-    current = current->next;
-  }
-  printf("NULL\n");
+    if (list->head == NULL) {
+        printf("List is empty.\n");
+        return;
+    } 
+    SLLNode *current = list->head;
+    while(current != NULL) {
+        printf("%d -> ", current->value);
+        current = current->next;
+    }
+    printf("NULL\n");
 }
 
 
@@ -113,33 +101,36 @@ void SLLPrint(SingleLinkedList *list) {
  * @param value Value to add at the end of the list
  */
 void SLLAppend(SingleLinkedList *list, int value) {
-  SLLNode *new = CreateNode();
-  new->value = value;
-
-  SLLNode *current = list->head;
-  if (list->head == NULL) {
-    list->head = new;
-  } else {
-    while (current->next != NULL) {
-      current = current->next;
+    SLLNode *new = CreateNode();
+    new->value = value;
+    SLLNode *current = list->head;
+    if (list->head == NULL) {
+        list->head = new;
+    } else {
+        while (current->next != NULL) {
+            current = current->next;
+        }
+        current->next = new;
     }
-    current->next = new;
-  }
-  list->length++;
+    list->length++;
 }
 
 /**
- * @brief Add a node containing <value> at the end of the list
+ * @brief Add a node containing <value> at the start of the list
  *
  * @param list 
  * @param value 
  */
 void SLLPrepend(SingleLinkedList *list, int value) {
-  SLLNode *new = CreateNode();
-  new->value = value;
-  new->next = list->head;
-  list->head = new;
-  list->length++;
+    SLLNode *new = CreateNode();
+    new->value = value;
+    if(list->length == 0) {
+        list->head = new;
+    } else {
+        new->next = list->head;
+        list->head = new;
+    }
+    list->length++;
 }
 
 /**
@@ -150,33 +141,33 @@ void SLLPrepend(SingleLinkedList *list, int value) {
  * @return Value stored at <index>
  */
 int SLLGetAt(SingleLinkedList *list, int index) {
-  if (index >= list->length) {
-    printf("WARNING! Out-of-boud access attempt with SLLGet\n");
-    return 0;
-  }
-  SLLNode *current = list->head;
-  for (int i = 0; i < index; i++) {
-    if (current->next != NULL) {
-      current = current->next;
+    if (index >= list->length) {
+        printf("WARNING! Out-of-boud access attempt with SLLGet\n");
+        return 0;
     }
-  }
-  return current->value;
+    SLLNode *current = list->head;
+    for (int i = 0; i < index; i++) {
+        if (current->next != NULL) {
+            current = current->next;
+        }
+    }
+    return current->value;
 }
 
 int SLLGetLast(SingleLinkedList *list) {
-  if (list->head == NULL) {
-    printf("WARNING: SLLGetLast attempt on empty list.\n");
-    return 0;
-  }
-  SLLNode *current = list->head;
-  while (current->next != NULL) {
-    current = current->next;
-  }
-  return current->value;
+    if (list->head == NULL) {
+        printf("WARNING: SLLGetLast attempt on empty list.\n");
+        return 0;
+    }
+    SLLNode *current = list->head;
+    while (current->next != NULL) {
+        current = current->next;
+    }
+    return current->value;
 }
 
 int SLLPeek(SingleLinkedList *list) {
-  return SLLGetAt(list, 0);
+    return SLLGetAt(list, 0);
 }
 
 /**
@@ -187,30 +178,30 @@ int SLLPeek(SingleLinkedList *list) {
  * @return value removed at <index>. In case of out-of-bound, returns 0 (not very satisfying but what can we do...)
  */
 int SLLRemoveAt(SingleLinkedList *list, int index) {
-  if (index >= list->length) {
-    printf("WARNING! Out-of-boud access attempt with SLLRemoveAt\n");
-    return 0;
-  }
-  int result;
-  if (index == 0) {
-    SLLNode *to_delete = list->head;
-    list->head = list->head->next;
-    result = to_delete->value;
-    SLLFree(to_delete);
-  } else {
-    SLLNode *current = list->head;
-    for (int i = 0; i < index - 1; i++) {
-      current = current->next;
+    if (index >= list->length) {
+        printf("WARNING! Out-of-boud access attempt with SLLRemoveAt\n");
+        return 0;
     }
-    SLLNode *previous = current;
-    SLLNode *to_delete = previous->next;
-    SLLNode *next = to_delete->next;
-    previous->next = next;
-    result = to_delete->value;
-    SLLFree(to_delete);
-  }
-  list->length--;
-  return result;
+    int result;
+    if (index == 0) {
+        SLLNode *to_delete = list->head;
+        list->head = list->head->next;
+        result = to_delete->value;
+        SLLFree(to_delete);
+    } else {
+        SLLNode *current = list->head;
+        for (int i = 0; i < index - 1; i++) {
+            current = current->next;
+        }
+        SLLNode *previous = current;
+        SLLNode *to_delete = previous->next;
+        SLLNode *next = to_delete->next;
+        previous->next = next;
+        result = to_delete->value;
+        SLLFree(to_delete);
+    }
+    list->length--;
+    return result;
 }
 
 
@@ -222,28 +213,119 @@ int SLLRemoveAt(SingleLinkedList *list, int index) {
  * @return true if removal successful, false if value not found
  */
 bool SLLRemove(SingleLinkedList *list, int value) {
-  SLLNode *current = list->head;
-  for(int i = 0; i < list->length; i++) {
-    if (current->value == value) {
-      SLLRemoveAt(list, i);
-      return true;
+    SLLNode *current = list->head;
+    for(int i = 0; i < list->length; i++) {
+        if (current->value == value) {
+            SLLRemoveAt(list, i);
+            return true;
+        }
     }
-  }
-  return false;
+    return false;
 }
 
 void SLLClear(SingleLinkedList *list) {
-  if (list->head == NULL) {
-    return;
-  }
-  SLLNode *to_delete = list->head;
-  while (to_delete->next != NULL) {
-    SLLNode *next = to_delete->next;
+    if (list->head == NULL) {
+        return;
+    }
+    SLLNode *to_delete = list->head;
+    while (to_delete->next != NULL) {
+        SLLNode *next = to_delete->next;
+        free(to_delete);
+        list->length--;
+        to_delete = next;
+    }
     free(to_delete);
     list->length--;
-    to_delete = next;
-  }
-  free(to_delete);
-  list->length--;
-  list->head = NULL;
+    list->head = NULL;
+}
+
+
+void DLLInitialize(DoubleLinkedList *list){
+    list->length = 0;
+    list->head = NULL;
+    list->tail = NULL;
+}
+
+bool IsEmpty(DoubleLinkedList *list) {
+    return list->head == NULL;
+}
+
+
+/**
+ * @brief Add new node with <value> at the END of the list
+ *
+ * @param list 
+ * @param value 
+ */
+void DLLAppend(DoubleLinkedList *list, int value){
+    DLLNode *new = malloc(sizeof(DLLNode));
+    new->value = value;
+    if (IsEmpty(list)) {
+        list->head = new;
+        list->tail = new;
+    } else {
+        list->tail->next = new;
+        new->prev = list->tail;
+        list->tail = new;
+        if (list->length == 1) {
+            list->head->next = list->tail;
+        }
+    }
+    list->length++;
+}
+
+/**
+ * @brief Add new node with <value> at the START of the list
+ *
+ * @param list 
+ * @param value 
+ */
+void DLLPrepend(DoubleLinkedList *list, int value){}
+
+/**
+ * @brief Return value of node stored at position <index>
+ *
+ * @param list 
+ * @param index 
+ * @return 
+ */
+int DLLGetAt(DoubleLinkedList *list, int index){
+    if (index >= list->length) {
+        printf("WARNING! Out-of-boud access attempt with DLLGet\n");
+        return 0;
+    }
+    DLLNode *current;    
+    if (index < (list->length)/2) {
+        // Start from head
+        current = list->head;
+        for (int i = 0; i < index; i++) {
+            if (current->next != NULL) {
+                current = current->next;
+            } else {
+                printf("WARNING: Attempt to access NULL pointer in SLLGetAt, index %d.\n", index);
+            }
+        }
+    } else {
+        // Start from tail downwards
+        current = list->tail;
+        for (int i = list->length -1; i > index; i--) {
+            if (current->prev != NULL) {
+                current = current->prev;
+            }else {
+                printf("WARNING: Attempt to access NULL pointer in SLLGetAt, index %d.\n", index);
+            }
+        }
+    }
+    return current->value;
+}
+
+int DLLRemoveAt(DoubleLinkedList *list, int index){
+    return 0;
+}
+bool DLLRemove(DoubleLinkedList *list, int value){
+    return false;
+}
+void DLLClear(DoubleLinkedList *list){}
+int DLLGetLast(DoubleLinkedList *list){
+    return 0;
 }
