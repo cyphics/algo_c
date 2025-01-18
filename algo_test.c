@@ -1,11 +1,12 @@
-#include "algo_lib.h"
-#include "helpers.h"
 #include <CUnit/Basic.h>
 #include <CUnit/CUnit.h>
 #include <CUnit/TestDB.h>
 #include <CUnit/TestRun.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include "algo_lib.h"
+#include "linked_list_int.h"
+#include "helpers.h"
 
 void foo(int i) {
     printf("%d", i);
@@ -58,63 +59,6 @@ void test_BubbleSort(void) {
     CU_ASSERT(CompareArrays(arr, sorted, sizeof(arr)));
 }
 
-
-// Receives an empty list and populates it
-void SLLPopulateList(SingleLinkedList *list) {
-    SLLAppend(list, 1);
-    SLLAppend(list, 2);
-    SLLAppend(list, 3);
-    SLLAppend(list, 4);
-    SLLAppend(list, 5);
-}
-void TestSLLAppend(void) {
-    SingleLinkedList list = SLLGetEmptyList();
-    SLLPopulateList(&list);
-    CU_ASSERT(list.head->value = 1);
-    CU_ASSERT(list.head->next->next->next->next->value == 5);
-    CU_ASSERT(list.head->next->next->next->next->next == NULL);
-    CU_ASSERT(list.length = 5);
-    SLLClear(&list);
-}
-
-void TestSLLGetAt(void) {
-    SingleLinkedList list = SLLGetEmptyList();
-    SLLPopulateList(&list);
-    CU_ASSERT(SLLGetAt(&list, 0) == 1);
-    CU_ASSERT(SLLGetAt(&list, 1) == 2);
-    CU_ASSERT(SLLGetAt(&list, 4) == 5);
-    CU_ASSERT(SLLGetAt(&list, 5) == 0);
-    SLLClear(&list);
-}
-
-void TestSLLPrepend(void) {
-    SingleLinkedList list = SLLGetEmptyList();
-    SLLPrepend(&list, 1);
-    SLLPrepend(&list, 2);
-    SLLPrepend(&list, 3);
-    SLLPrepend(&list, 4);
-    SLLPrepend(&list, 5);
-    CU_ASSERT(SLLGetAt(&list, 0) == 5);
-    CU_ASSERT(SLLGetAt(&list, 4) == 1);
-    SLLClear(&list);
-}
-
-void TestSLLRemoveAt(void) {
-    SingleLinkedList list = SLLGetEmptyList();
-    SLLPopulateList(&list);
-    CU_ASSERT(SLLRemoveAt(&list, 0) == 1);
-    CU_ASSERT(list.length == 4);
-    CU_ASSERT(SLLRemoveAt(&list, 3) == 5);
-    CU_ASSERT(list.length == 3);
-    SLLClear(&list);
-}
-
-void TestSingleLinkedList(CU_pSuite suite) {
-    CU_add_test(suite, "SLLAppend", TestSLLAppend);
-    CU_add_test(suite, "SLLGetAt", TestSLLGetAt);
-    CU_add_test(suite, "SLLPrepend", TestSLLPrepend);
-    CU_add_test(suite, "SLLRemoveAt", TestSLLRemoveAt);
-}
 
 void DLLPopulateList(DoubleLinkedList *list) {
     DLLAppend(list, 1);
@@ -223,10 +167,8 @@ int main(void) {
     CU_add_test(suite, "IndexOfSorted", test_IndexOfSorted);
     CU_add_test(suite, "BubbleSort", test_BubbleSort);
     CU_add_test(suite, "Sorting", test_sorting);
-    TestSingleLinkedList(suite);
     TestDoubleLinkedList(suite);
     CU_basic_run_tests();
     CU_cleanup_registry();
-    /*TestSegFault();*/
     return 0;
 }
