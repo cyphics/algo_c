@@ -5,6 +5,11 @@ int  IndexOf(void *target, void *array, int array_length, int size);
 int  IndexOfSorted(int array[], int target, int length);
 void BubbleSort(int array[], int size);
 
+
+/************************************
+* SINGLE LINKED LIST
+*************************************/
+
 typedef struct SLLNode {
     int value;
     struct SLLNode *next;
@@ -16,15 +21,17 @@ typedef struct SingleLinkedList {
 } SingleLinkedList;
 
 void SLLPrint(SingleLinkedList *list);
-void SLLInitialize(SingleLinkedList *list);
+SingleLinkedList SLLGetEmptyList(void);
 void SLLAppend(SingleLinkedList *list, int value);
 void SLLPrepend(SingleLinkedList *list, int value);
 int  SLLGetAt(SingleLinkedList *list, int index);
 int  SLLRemoveAt(SingleLinkedList *list, int index);
-bool SLLRemove(SingleLinkedList *list, int value);
 void SLLClear(SingleLinkedList *list);
-int  SLLGetLast(SingleLinkedList *list);
-int  SLLPeek(SingleLinkedList *list);
+
+
+/************************************
+* DOUBLE LINKED LIST
+*************************************/
 
 typedef struct DLLNode {
     int value;
@@ -38,15 +45,16 @@ typedef struct DoubleLinkedList {
     DLLNode *tail;
 } DoubleLinkedList;
 
-void DLLPrint(DoubleLinkedList *list);
-void DLLInitialize(DoubleLinkedList *list);
+DoubleLinkedList DLLGetEmptyList(void);
 void DLLAppend(DoubleLinkedList *list, int value);
 void DLLPrepend(DoubleLinkedList *list, int value);
 int  DLLGetAt(DoubleLinkedList *list, int index);
+int  DLLRemoveFirst(DoubleLinkedList *list);
+int  DLLRemoveLast(DoubleLinkedList *list);
 int  DLLRemoveAt(DoubleLinkedList *list, int index);
-bool DLLRemove(DoubleLinkedList *list, int value);
+int  DLLRemoveFirst(DoubleLinkedList *list);
+int  DLLRemoveLast(DoubleLinkedList *list);
 void DLLClear(DoubleLinkedList *list);
-int  DLLGetLast(DoubleLinkedList *list);
 
 
 extern const struct library Sorting;

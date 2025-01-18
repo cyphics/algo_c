@@ -1,6 +1,7 @@
 #include "algo_lib.h"
 #include "helpers.h"
 #include <stdbool.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -64,9 +65,11 @@ void SLLFree(SLLNode *node) {
  *
  * @param list The list to initalize
  */
-void SLLInitialize(SingleLinkedList *list) {
-    list->length = 0;
-    list->head = NULL;
+SingleLinkedList SLLGetEmptyList(void) {
+    SingleLinkedList list;
+    list.length = 0;
+    list.head = NULL;
+    return list;
 }
 
 void SLLPrintNode(SLLNode *node) {
@@ -154,22 +157,6 @@ int SLLGetAt(SingleLinkedList *list, int index) {
     return current->value;
 }
 
-int SLLGetLast(SingleLinkedList *list) {
-    if (list->head == NULL) {
-        printf("WARNING: SLLGetLast attempt on empty list.\n");
-        return 0;
-    }
-    SLLNode *current = list->head;
-    while (current->next != NULL) {
-        current = current->next;
-    }
-    return current->value;
-}
-
-int SLLPeek(SingleLinkedList *list) {
-    return SLLGetAt(list, 0);
-}
-
 /**
  * @brief Remove the node at the <index> location.
  *
@@ -185,7 +172,11 @@ int SLLRemoveAt(SingleLinkedList *list, int index) {
     int result;
     if (index == 0) {
         SLLNode *to_delete = list->head;
-        list->head = list->head->next;
+        if (list->length > 1) {
+            list->head = list->head->next;
+        } else {
+            list->head = NULL;
+        }
         result = to_delete->value;
         SLLFree(to_delete);
     } else {
@@ -194,9 +185,8 @@ int SLLRemoveAt(SingleLinkedList *list, int index) {
             current = current->next;
         }
         SLLNode *previous = current;
-        SLLNode *to_delete = previous->next;
-        SLLNode *next = to_delete->next;
-        previous->next = next;
+        SLLNode *to_delete = current->next;
+        previous->next = NULL;
         result = to_delete->value;
         SLLFree(to_delete);
     }
@@ -240,10 +230,12 @@ void SLLClear(SingleLinkedList *list) {
 }
 
 
-void DLLInitialize(DoubleLinkedList *list){
-    list->length = 0;
-    list->head = NULL;
-    list->tail = NULL;
+DoubleLinkedList DLLGetEmptyList(){
+    DoubleLinkedList list;
+    list.length = 0;
+    list.head = NULL;
+    list.tail = NULL;
+    return list;
 }
 
 bool IsEmpty(DoubleLinkedList *list) {
@@ -280,7 +272,22 @@ void DLLAppend(DoubleLinkedList *list, int value){
  * @param list 
  * @param value 
  */
-void DLLPrepend(DoubleLinkedList *list, int value){}
+void DLLPrepend(DoubleLinkedList *list, int value){
+    DLLNode *new = malloc(sizeof(DLLNode));
+    new->value = value;
+    if (IsEmpty(list)) {
+        list->head = new;
+        list->tail = new;
+    } else {
+        new->next = list->head;
+        list->head->prev = new;
+        list->head = new;
+        if (list->length == 1) {
+            list->tail->prev = list->head;
+        }
+    }
+    list->length++;
+}
 
 /**
  * @brief Return value of node stored at position <index>
@@ -291,7 +298,7 @@ void DLLPrepend(DoubleLinkedList *list, int value){}
  */
 int DLLGetAt(DoubleLinkedList *list, int index){
     if (index >= list->length) {
-        printf("WARNING! Out-of-boud access attempt with DLLGet\n");
+        printf("WARNING! Out-of-boud access attempt with DLLGet (index %d)\n", index);
         return 0;
     }
     DLLNode *current;    
@@ -319,13 +326,75 @@ int DLLGetAt(DoubleLinkedList *list, int index){
     return current->value;
 }
 
-int DLLRemoveAt(DoubleLinkedList *list, int index){
-    return 0;
+int DLLRemoveEmptyOrOne(DoubleLinkedList *list) {
+    if (list->length == 0) {
+        printf("Warning: Attempt to remove first of empty list.\n");
+        return 0;
+    } else { // length == 1
+        int value;
+        value = list->head->value;
+        free(list->head);
+        list->head = NULL;
+        list->tail = NULL;
+        list->length = 0;
+        return value;
+    }
 }
+
+int DLLRemoveFirst(DoubleLinkedList *list) {
+    if (list->length <= 1) {
+        return DLLRemoveEmptyOrOne(list);
+    }
+    return  DLLRemoveAt(list, 0);
+}
+
+int DLLRemoveLast(DoubleLinkedList *list) {
+    if (list->length <= 1) {
+        return DLLRemoveEmptyOrOne(list);
+    }
+    return DLLRemoveAt(list, list->length - 1);
+}
+
+int DLLRemoveAt(DoubleLinkedList *list, int index){
+    if (list->length <= 1) {
+        return DLLRemoveEmptyOrOne(list);
+    }
+    if(index >= list->length) {
+        printf("WARNING! Out-of-boud access attempt with DLLRemoveAt (index %d)\n", index);
+        return 0;
+    }
+    DLLNode *to_remove = list->head;
+    int value;
+    for (int i = 0; i < index; i++) {
+      to_remove = to_remove->next;
+    }
+    // If erase first node
+    if (to_remove->prev == NULL) {
+      list->head = to_remove->next;
+    } else {
+        to_remove->prev->next = to_remove->next;
+    }
+    // If erase last node
+    if (to_remove->next == NULL) {
+      list->tail = to_remove->prev;
+    } else {
+        to_remove->next->prev = to_remove->prev;
+    }
+    value = to_remove->value;
+    free(to_remove);
+    list->length--;
+    return value;
+}
+
 bool DLLRemove(DoubleLinkedList *list, int value){
     return false;
 }
-void DLLClear(DoubleLinkedList *list){}
+void DLLClear(DoubleLinkedList *list){
+    while(list->length > 0) {
+        DLLRemoveFirst(list);
+    }
+}
+
 int DLLGetLast(DoubleLinkedList *list){
     return 0;
 }
