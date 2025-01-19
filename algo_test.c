@@ -5,169 +5,124 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include "algo_lib.h"
-#include "linked_list_int.h"
+/*#include "linked_list_int.h"*/
+#include "linked_list_str.h"
 #include "helpers.h"
 
-void foo(int i) {
-    printf("%d", i);
+
+
+void PopulateList(LinkedList *list) {
+    Append(list, "test 1");
+    Append(list, "test 2");
+    Append(list, "test 3");
+    Append(list, "test 4");
+    Append(list, "test 5");
 }
 
-void test_IndexOfSorted(void) {
-    int foo[] = {1, 3, 4, 69, 71, 81, 90, 99, 420, 1337, 69420};
-    int size = sizeof(foo) / sizeof(foo[0]);
-    CU_ASSERT(IndexOfSorted(foo, 69, size) == 3);
-    CU_ASSERT(IndexOfSorted(foo, 1336, size) == -1);
-    CU_ASSERT(IndexOfSorted(foo, 69420, size) == 10);
-    CU_ASSERT(IndexOfSorted(foo, 69421, size) == -1);
-    CU_ASSERT(IndexOfSorted(foo, 1, size) == 0);
-    CU_ASSERT(IndexOfSorted(foo, 0, size) == -1);
-}
-
-void test_sorting(void) {
-    /*int array[] = {1, 2, 4, 5, 7};*/
-    /*CU_ASSERT(Sorting.BinarySearch(5, array, 5));*/
-}
-
-void test_IndexOf(void) {
-    char target1 = 'c';
-    char target2 = 'z';
-    char array[] = {'a', 'b', 'c', 'd', 'e'};
-    int index1 =
-            IndexOf(&target1, &array, sizeof(array), sizeof(target1));
-    int index2 =
-            IndexOf(&target2, &array, sizeof(array), sizeof(target2));
-    CU_ASSERT(index1 == 2);
-    CU_ASSERT(index2 == -1);
-
-    double double1 = 0.1;
-    double double2 = 0.2;
-    double array2[] = {0.2, 3.98, 38924.9, 0.0};
-
-    index1 = IndexOf(&double1, &array2, sizeof(array2), sizeof(double1));
-    index2 = IndexOf(&double2, &array2, sizeof(array2), sizeof(double2));
-    CU_ASSERT(index1 == -1);
-    CU_ASSERT(index2 == 0);
-}
-
-void test_BubbleSort(void) {
-    int arr[] = {10, 9, 3, 7, 4, 69, 420, 42, 41};
-    int sorted[] = {3, 4, 7, 9, 10, 41, 42, 69, 420};
-
-    int size = sizeof(arr) / sizeof(arr[0]);
-    BubbleSort(arr, size);
-
-    CU_ASSERT(CompareArrays(arr, sorted, sizeof(arr)));
-}
-
-
-void DLLPopulateList(DoubleLinkedList *list) {
-    DLLAppend(list, 1);
-    DLLAppend(list, 2);
-    DLLAppend(list, 3);
-    DLLAppend(list, 4);
-    DLLAppend(list, 5);
-}
-
-void TestDLLAppend(void) {
-    DoubleLinkedList list = DLLGetEmptyList();
-    DLLPopulateList(&list);
+void TestAppend(void) {
+    LinkedList list = GetEmptyList();
+    PopulateList(&list);
     CU_ASSERT(list.length == 5);
     CU_ASSERT(list.head != NULL);
-    CU_ASSERT(list.head->value == 1);
-    CU_ASSERT(list.head->next->next->next->next->value == 5);
+    CU_ASSERT(strcmp(list.head->value, "test 1") == 0);
+    CU_ASSERT(strcmp(list.head->next->next->next->next->value, "test 5") == 0);
     CU_ASSERT(list.head->next->next->next->next->next == NULL);
-    DLLClear(&list);
+    Clear(&list);
 }
 
 
-void TestDLLGetAt(void) {
-    DoubleLinkedList list = DLLGetEmptyList();
-    DLLPopulateList(&list);
-    CU_ASSERT(DLLGetAt(&list, 0) == 1);
-    CU_ASSERT(DLLGetAt(&list, 4) == 5);
-    CU_ASSERT(DLLGetAt(&list, 5) == 0);
-    DLLClear(&list);
+void TestGetAt(void) {
+    LinkedList list = GetEmptyList();
+    PopulateList(&list);
+    CU_ASSERT(strcmp(GetAt(&list, 0), "test 1") == 0);
+    CU_ASSERT(strcmp(GetAt(&list, 1), "test 2") == 0);
+    CU_ASSERT(strcmp(GetAt(&list, 4), "test 5") == 0);
+    CU_ASSERT(GetAt(&list, 5) == NULL);
+    Clear(&list);
 }
 
-void TestDLLPrepend(void) {
-    DoubleLinkedList list = DLLGetEmptyList();
-    DLLPopulateList(&list);
-    DLLPrepend(&list, 6);
-    DLLPrepend(&list, 7);
-    DLLPrepend(&list, 8);
-    DLLPrepend(&list, 9);
-    DLLPrepend(&list, 10);
-    CU_ASSERT(DLLGetAt(&list, 0) == 10);
-    CU_ASSERT(DLLGetAt(&list, 1) == 9);
-    CU_ASSERT(DLLGetAt(&list, 5) == 1);
-    CU_ASSERT(DLLGetAt(&list, 9) == 5);
-    CU_ASSERT(DLLGetAt(&list, 10) == 0);
+void TestPrepend(void) {
+    LinkedList list = GetEmptyList();
+    PopulateList(&list);
+    Prepend(&list, "test 6");
+    Prepend(&list, "test 7");
+    Prepend(&list, "test 8");
+    Prepend(&list, "test 9");
+    Prepend(&list, "test 10");
+    CU_ASSERT(strcmp(GetAt(&list, 0), "test 10") == 0);
+    CU_ASSERT(strcmp(GetAt(&list, 1), "test 9") == 0);
+    CU_ASSERT(strcmp(GetAt(&list, 5), "test 1") == 0);
+    CU_ASSERT(strcmp(GetAt(&list, 9), "test 5") == 0);
+    CU_ASSERT(GetAt(&list, 10) == 0);
     CU_ASSERT(list.length == 10);
-    DLLClear(&list);
+    Clear(&list);
 }
 
-void TestDLLRemoveFirst(void) {
-    DoubleLinkedList list = DLLGetEmptyList();
-    DLLPopulateList(&list);
-    CU_ASSERT(DLLRemoveFirst(&list) == 1);
-    CU_ASSERT(DLLRemoveFirst(&list) == 2);
-    CU_ASSERT(list.length == 3);
-    CU_ASSERT(DLLRemoveFirst(&list) == 3);
-    CU_ASSERT(DLLRemoveFirst(&list) == 4);
-    CU_ASSERT(list.length == 1);
-    CU_ASSERT(DLLRemoveFirst(&list) == 5);
-    CU_ASSERT(list.length == 0);
-    CU_ASSERT(DLLRemoveFirst(&list) == 0);
-    DLLClear(&list);
-}
-
-void TestDLLRemoveLast(void) {
-    DoubleLinkedList list = DLLGetEmptyList();
-    DLLPopulateList(&list);
-    CU_ASSERT(DLLRemoveLast(&list) == 5);
-    DLLClear(&list);
-}
-
-void TestDLLRemoveAt(void) {
-    DoubleLinkedList list = DLLGetEmptyList();
-    DLLPopulateList(&list);
-    CU_ASSERT(DLLRemoveAt(&list, 0) == 1);
+void TestRemoveAt(void) {
+    LinkedList list = GetEmptyList();
+    PopulateList(&list);
+    CU_ASSERT(strcmp(RemoveAt(&list, 0), "test 1") == 0);
     CU_ASSERT(list.length == 4);
-    CU_ASSERT(DLLRemoveAt(&list, 3) == 5);
-    CU_ASSERT(DLLRemoveAt(&list, 4) == 0);
-    CU_ASSERT(DLLRemoveAt(&list, 0) == 2);
-    CU_ASSERT(list.length == 2);
-    CU_ASSERT(DLLRemoveAt(&list, 0) == 3);
-    CU_ASSERT(DLLRemoveAt(&list, 0) == 4);
-    CU_ASSERT(DLLRemoveAt(&list, 0) == 0);
-    DLLClear(&list);
+    CU_ASSERT(strcmp(RemoveAt(&list, 3), "test 5") == 0);
+    CU_ASSERT(strcmp(RemoveAt(&list, 2), "test 4") == 0);
+    CU_ASSERT(strcmp(RemoveAt(&list, 0), "test 2") == 0);
+    CU_ASSERT(list.length == 1);
+    CU_ASSERT(strcmp(RemoveAt(&list, 0), "test 3") == 0);
+    CU_ASSERT(list.length == 0);
+    CU_ASSERT(RemoveAt(&list, 0) == 0);
+    Clear(&list);
 }
 
-void TestDLLClear(void) {
-    DoubleLinkedList list = DLLGetEmptyList();
-    DLLPopulateList(&list);
-    DLLClear(&list);
+void TestRemoveFirst(void) {
+    LinkedList list = GetEmptyList();
+    PopulateList(&list);
+    CU_ASSERT(strcmp(RemoveFirst(&list), "test 1") == 0);
+    CU_ASSERT(strcmp(RemoveFirst(&list), "test 2") == 0);
+    CU_ASSERT(list.length == 3);
+    CU_ASSERT(strcmp(RemoveFirst(&list), "test 3") == 0);
+    CU_ASSERT(strcmp(RemoveFirst(&list), "test 4") == 0);
+    CU_ASSERT(list.length == 1);
+    CU_ASSERT(strcmp(RemoveFirst(&list), "test 5") == 0);
+    CU_ASSERT(list.length == 0);
+    CU_ASSERT(RemoveFirst(&list) == 0);
+    Clear(&list);
+}
+
+void TestRemoveLast(void) {
+    LinkedList list = GetEmptyList();
+    PopulateList(&list);
+    CU_ASSERT(strcmp(RemoveLast(&list), "test 5") == 0);
+    CU_ASSERT(strcmp(RemoveLast(&list), "test 4") == 0);
+    CU_ASSERT(strcmp(RemoveLast(&list), "test 3") == 0);
+    CU_ASSERT(strcmp(RemoveLast(&list), "test 2") == 0);
+    CU_ASSERT(strcmp(RemoveLast(&list), "test 1") == 0);
+    Clear(&list);
+}
+
+
+void TestClear(void) {
+    LinkedList list = GetEmptyList();
+    PopulateList(&list);
+    Clear(&list);
     CU_ASSERT(list.length == 0);
     CU_ASSERT(list.head == NULL);
     CU_ASSERT(list.tail == NULL);
 }
 
-void TestDoubleLinkedList(CU_pSuite suite) {
-    CU_add_test(suite, "DLLAppend", TestDLLAppend);
-    CU_add_test(suite, "DLLGetAt", TestDLLGetAt);
-    CU_add_test(suite, "DLLPrepend", TestDLLPrepend);
-    CU_add_test(suite, "DLLRemoveAt", TestDLLRemoveAt);
-    CU_add_test(suite, "DLLClear", TestDLLClear);
+void TestLinkedList(CU_pSuite suite) {
+    CU_add_test(suite, "Append", TestAppend);
+    CU_add_test(suite, "GetAt", TestGetAt);
+    CU_add_test(suite, "Prepend", TestPrepend);
+    CU_add_test(suite, "RemoveAt", TestRemoveAt);
+    CU_add_test(suite, "RemoveFirst", TestRemoveFirst);
+    CU_add_test(suite, "RemoveLast", TestRemoveLast);
+    CU_add_test(suite, "Clear", TestClear);
 }
 
 int main(void) {
     CU_initialize_registry();
     CU_pSuite suite = CU_add_suite("Sorting", 0, 0);
-    CU_add_test(suite, "IndexOf", test_IndexOf);
-    CU_add_test(suite, "IndexOfSorted", test_IndexOfSorted);
-    CU_add_test(suite, "BubbleSort", test_BubbleSort);
-    CU_add_test(suite, "Sorting", test_sorting);
-    TestDoubleLinkedList(suite);
+    TestLinkedList(suite);
     CU_basic_run_tests();
     CU_cleanup_registry();
     return 0;
