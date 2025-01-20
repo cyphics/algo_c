@@ -101,6 +101,9 @@ char* GetAt(LinkedList *list, int index){
     return current->value;
 }
 
+void foo(void) {
+    printf("fafda");
+}
 char* RemoveEmptyOrOne(LinkedList *list) {
     if (list->length == 0) {
         printf("Warning: Attempt to remove first of empty list.\n");
@@ -156,6 +159,7 @@ char* RemoveAt(LinkedList *list, int index){
         to_remove->next->prev = to_remove->prev;
     }
     value = to_remove->value;
+    /*free(to_remove->value);*/
     free(to_remove);
     list->length--;
     return value;

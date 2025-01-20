@@ -1,6 +1,8 @@
-#include "linked_list.h"
+#include "linked_list_int.h"
+#include <stdio.h>
+#include <stdlib.h>
 
-DoubleLinkedList DLLGetEmptyList(){
+DoubleLinkedList DLLGetEmptyList(void){
     DoubleLinkedList list;
     list.length = 0;
     list.head = NULL;
@@ -156,15 +158,9 @@ int DLLRemoveAt(DoubleLinkedList *list, int index){
     return value;
 }
 
-bool DLLRemove(DoubleLinkedList *list, int value){
-    return false;
-}
 void DLLClear(DoubleLinkedList *list){
     while(list->length > 0) {
         DLLRemoveFirst(list);
     }
 }
 
-int DLLGetLast(DoubleLinkedList *list){
-    return 0;
-}

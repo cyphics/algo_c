@@ -8,6 +8,8 @@
 /*#include "linked_list_int.h"*/
 #include "linked_list_str.h"
 #include "helpers.h"
+#include "queue.h"
+#include "ringBuffer.h"
 
 
 
@@ -119,10 +121,72 @@ void TestLinkedList(CU_pSuite suite) {
     CU_add_test(suite, "Clear", TestClear);
 }
 
+void TestStack(CU_pSuite suite) {
+
+}
+
+void TestQueue(void) {
+    Queue list = GetQueue();
+
+    EnQueue(&list, 5);
+    EnQueue(&list, 7);
+    EnQueue(&list, 9);
+
+    CU_ASSERT(DeQueue(&list) == 5);
+    CU_ASSERT(list.length == 2);
+
+    EnQueue(&list, 11);
+    CU_ASSERT(DeQueue(&list) == 7);
+    CU_ASSERT(DeQueue(&list) == 9);
+    CU_ASSERT(PeekQueue(&list) == 11);
+    CU_ASSERT(DeQueue(&list) == 11);
+    CU_ASSERT(DeQueue(&list) == 0);
+    CU_ASSERT(list.length == 0);
+
+    EnQueue(&list, 69);
+    CU_ASSERT(PeekQueue(&list) == 69);
+    CU_ASSERT(list.length == 1);
+}
+
+void TestRingBuffer(void) {
+    RingBuffer buffer = GetRingBuffer(5);
+
+    AddToStart(&buffer, 1);
+    CU_ASSERT(PeekStart(&buffer) == 1);
+    CU_ASSERT(PeekEnd(&buffer) == 1);
+    CU_ASSERT(buffer.length == 1);
+
+    AddToEnd(&buffer, 2);
+    CU_ASSERT(PeekStart(&buffer) == 1);
+    CU_ASSERT(PeekEnd(&buffer) == 2);
+    CU_ASSERT(buffer.length == 2);
+
+    AddToStart(&buffer, 3);
+    CU_ASSERT(RemoveFromStart(&buffer) == 3);
+    CU_ASSERT(RemoveFromEnd(&buffer) == 2);
+    CU_ASSERT(PeekStart(&buffer) == 1);
+    CU_ASSERT(PeekEnd(&buffer) == 1);
+
+    AddToStart(&buffer, 4);
+    AddToStart(&buffer, 5);
+    AddToStart(&buffer, 6);
+    CU_ASSERT(buffer.length == 4);
+
+    RemoveFromEnd(&buffer);
+    RemoveFromEnd(&buffer);
+    RemoveFromEnd(&buffer);
+    AddToStart(&buffer, 7);
+    AddToStart(&buffer, 9);
+    AddToStart(&buffer, 9);
+}
+
 int main(void) {
     CU_initialize_registry();
     CU_pSuite suite = CU_add_suite("Sorting", 0, 0);
     TestLinkedList(suite);
+    CU_add_test(suite, "Queue", TestQueue);
+    CU_add_test(suite, "Ring Buffer", TestRingBuffer);
+    TestStack(suite);
     CU_basic_run_tests();
     CU_cleanup_registry();
     return 0;
