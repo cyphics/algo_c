@@ -167,6 +167,7 @@ void TestRingBuffer(void) {
     CU_ASSERT(PeekStart(&buffer) == 1);
     CU_ASSERT(PeekEnd(&buffer) == 1);
 
+    PrintRingBuffer(&buffer);
     AddToStart(&buffer, 4);
     AddToStart(&buffer, 5);
     AddToStart(&buffer, 6);
@@ -178,6 +179,18 @@ void TestRingBuffer(void) {
     AddToStart(&buffer, 7);
     AddToStart(&buffer, 9);
     AddToStart(&buffer, 9);
+    PrintRingBuffer(&buffer);
+
+    ClearBuffer(&buffer);
+    PrintRingBuffer(&buffer);
+    AddToEnd(&buffer, 1);
+    AddToEnd(&buffer, 2);
+    AddToEnd(&buffer, 3);
+    AddToEnd(&buffer, 4);
+    AddToEnd(&buffer, 5);
+    PrintRingBuffer(&buffer);
+    AddToEnd(&buffer, 6);
+    PrintRingBuffer(&buffer);
 }
 
 int main(void) {

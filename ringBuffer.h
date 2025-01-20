@@ -16,3 +16,4 @@ int  RemoveFromEnd(RingBuffer *buffer);
 int  PeekStart(RingBuffer *buffer);
 int  PeekEnd(RingBuffer *buffer);
 void PrintRingBuffer(RingBuffer *buffer);
+void ClearBuffer(RingBuffer *buffer);

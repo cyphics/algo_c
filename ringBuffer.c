@@ -20,22 +20,38 @@ void PrintRingBuffer(RingBuffer *buffer) {
     }
     printf("\n ");
     if(buffer->tail > buffer->head) {
-        if(buffer->head > 0) printf("%*c", (buffer->head) * 3, ' ');
+        if (buffer->head > 0) printf("%*c", (buffer->head) * 3, ' ');
         printf(">");
         printf("%*c", (buffer->tail - buffer->head) * 3 - 1, ' ');
         printf("<");
-    } else {
-        if(buffer->tail > 0) printf("%*c", (buffer->tail) * 3, ' ');
+    } else if (buffer->head > buffer->tail) {
+        if (buffer->tail > 0)printf("%*c", (buffer->tail) * 3, ' ');
         printf("<");
         printf("%*c", (buffer->head - buffer->tail) * 3 - 1, ' ');
         printf(">");
+    } else {
+        if (buffer->tail > 0) printf("%*c", (buffer->tail) * 3, ' ');
+        printf("^");
     }
     printf("\n");
 }
 
-int *MaxBufferAddress(RingBuffer *buffer) {
-    return buffer->heap_position + (buffer->capacity - 1) * sizeof(int);
+void CheckSize(RingBuffer *buffer){
+    if(buffer->length == buffer->capacity) {
+        int *new_heap = malloc(2 * buffer->capacity * sizeof(int));
+        for (int i = 0; i < buffer->capacity; i++) {
+            int position = (buffer->tail + i + 1) % buffer->capacity;
+            int value = *(buffer->heap_position + position);
+            *(new_heap + i) = value;
+        }
+        free(buffer->heap_position);
+        buffer->heap_position = new_heap;
+        buffer->tail = (buffer->tail - buffer->head + buffer->capacity) % buffer->capacity;
+        buffer->head = 0;
+        buffer->capacity *= 2;
+    }
 }
+
 
 void IncrementPointer(RingBuffer *buffer, int *pointer) {
     *pointer = (*pointer + 1) % buffer->capacity;
@@ -59,6 +75,7 @@ void AddToStart(RingBuffer *buffer, int value) {
         buffer->head = 0;
     } else {
         DecrementPointer(buffer, &buffer->head);
+        CheckSize(buffer);
     };
     *GetAddress(buffer, buffer->head) = value;
     buffer->length++;
@@ -69,6 +86,7 @@ void AddToEnd(RingBuffer *buffer, int value) {
         buffer->tail = 0;
         buffer->head = 0;
     } else {
+        CheckSize(buffer);
         IncrementPointer(buffer, &buffer->tail);
     };
     *GetAddress(buffer, buffer->tail) = value;
@@ -100,3 +118,11 @@ int RemoveFromEnd(RingBuffer *buffer) {
     return value;
 }
 
+void ClearBuffer(RingBuffer *buffer) {
+    for (int i = 0; i < buffer->capacity; i++) {
+        *(buffer->heap_position + i) = 0;
+        buffer->tail = 0;
+        buffer->head = 0;
+        buffer->length = 0;
+    }
+}
