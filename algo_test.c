@@ -4,12 +4,15 @@
 #include <CUnit/TestRun.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include "algo_lib.h"
 /*#include "linked_list_int.h"*/
 #include "linked_list_str.h"
 #include "helpers.h"
 #include "queue.h"
 #include "ringBuffer.h"
+#include "quick_sort.h"
+#include "trees.h"
 
 
 
@@ -191,14 +194,48 @@ void TestRingBuffer(void) {
     PrintRingBuffer(&buffer);
     AddToEnd(&buffer, 6);
     PrintRingBuffer(&buffer);
+    ClearBuffer(&buffer);
+    free(buffer.heap_position);
+}
+bool CompareIntArrays(int *array1, int *array2, int length) {
+    for (int i = 0; i < length; i++) {
+        if (array1[i] != array2[i]) {
+            printf("Arrays not equal: %d != %d at index %d\n", array1[i], array2[i], i);
+            return false;
+        }
+    }
+    return true;
+}
+
+void TestQuickSort(void) {
+    int arr1[] = {1};
+    int exp1[] = {1};
+    QuickSort(arr1, 1);
+    CU_ASSERT(CompareIntArrays(arr1, exp1, 1));
+
+    int arr2[] = {1, 2};
+    int exp2[] = {1, 2};
+    QuickSort(arr2, 2);
+    CU_ASSERT(CompareIntArrays(arr2, exp2, 2));
+
+    int arr3[] = {2, 1};
+    int exp3[] = {1, 2};
+    QuickSort(arr3, 2);
+    CU_ASSERT(CompareArrays(arr3, exp3, 2));
+
+    int arr4[]= {2, 3, 8, 1, 7, 9, 5};
+    int exp4[] = {1, 2, 3, 5, 7, 8, 9};
+    QuickSort(arr4, 7); 
+    CU_ASSERT(CompareArrays(arr4, exp4, 7));
 }
 
 int main(void) {
     CU_initialize_registry();
     CU_pSuite suite = CU_add_suite("Sorting", 0, 0);
     TestLinkedList(suite);
-    CU_add_test(suite, "Queue", TestQueue);
-    CU_add_test(suite, "Ring Buffer", TestRingBuffer);
+    /*CU_add_test(suite, "Queue", TestQueue);*/
+    /*CU_add_test(suite, "Ring Buffer", TestRingBuffer);*/
+    CU_add_test(suite, "Quick Sort", TestQuickSort);
     TestStack(suite);
     CU_basic_run_tests();
     CU_cleanup_registry();

@@ -120,48 +120,47 @@ char* RemoveEmptyOrOne(LinkedList *list) {
 }
 
 char* RemoveFirst(LinkedList *list) {
-    if (list->length <= 1) {
-        return RemoveEmptyOrOne(list);
-    }
     return  RemoveAt(list, 0);
 }
 
 char* RemoveLast(LinkedList *list) {
-    if (list->length <= 1) {
-        return RemoveEmptyOrOne(list);
-    }
     return RemoveAt(list, list->length - 1);
 }
 
 char* RemoveAt(LinkedList *list, int index){
-    if (list->length <= 1) {
-        return RemoveEmptyOrOne(list);
-    }
+
+    if (list->length <= 1) return RemoveEmptyOrOne(list);
+
     if(index >= list->length) {
         printf("WARNING! Out-of-boud access attempt with RemoveAt (index %d)\n", index);
         return 0;
     }
+
     Node *to_remove = list->head;
     char *value;
     for (int i = 0; i < index; i++) {
       to_remove = to_remove->next;
     }
+
     // If erase first node
     if (to_remove->prev == NULL) {
       list->head = to_remove->next;
     } else {
         to_remove->prev->next = to_remove->next;
     }
+
     // If erase last node
     if (to_remove->next == NULL) {
       list->tail = to_remove->prev;
     } else {
         to_remove->next->prev = to_remove->prev;
     }
+
     value = to_remove->value;
     /*free(to_remove->value);*/
     free(to_remove);
     list->length--;
+
     return value;
 }
 
