@@ -6,7 +6,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include "algo_lib.h"
-/*#include "linked_list_int.h"*/
+#include "linked_list_int.h"
 #include "linked_list_str.h"
 #include "helpers.h"
 #include "queue.h"
@@ -229,6 +229,25 @@ void TestQuickSort(void) {
     CU_ASSERT(CompareArrays(arr4, exp4, 7));
 }
 
+void TestBinarytree(void) {
+    BinaryNode *node1 = InitBinaryTree();
+    BinaryNode *node2 = InitBinaryTree2();
+
+    CU_ASSERT(NumChildren(node1) == 9);
+    CU_ASSERT(NumChildren(node2) == 10);
+
+    DoubleLinkedListInt storage1 = DLLIntGetEmptyList();
+    /*int expected1[10] = {5, 7, 10, 15, 20, 29, 30, 45, 50, 100};*/
+    DoubleLinkedListInt storage2 = DLLIntGetEmptyList();
+    /*int expected2[11] = {5, 7, 10, 15, 20, 21, 29, 30, 45, 49, 51};*/
+
+    PreOrderSearch(node1, &storage1);
+    PreOrderSearch(node2, &storage2);
+
+    /*CU_ASSERT(CompareIntArrays(sorted1, expected1, 10) == true);*/
+    /*CU_ASSERT(CompareIntArrays(sorted2, expected2, 11) == true);*/
+}
+
 int main(void) {
     CU_initialize_registry();
     CU_pSuite suite = CU_add_suite("Sorting", 0, 0);
@@ -236,6 +255,7 @@ int main(void) {
     /*CU_add_test(suite, "Queue", TestQueue);*/
     /*CU_add_test(suite, "Ring Buffer", TestRingBuffer);*/
     CU_add_test(suite, "Quick Sort", TestQuickSort);
+    CU_add_test(suite, "Binary Tree", TestBinarytree);
     TestStack(suite);
     CU_basic_run_tests();
     CU_cleanup_registry();

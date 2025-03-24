@@ -1,27 +1,31 @@
+#ifndef LINKED_LIST_INT_H
+#define LINKED_LIST_INT_H
+
 #include <stdbool.h>
 #include <stdint.h>
 #include <string.h>
 
-typedef struct DLLNode {
+typedef struct DLLIntNode {
     int value;
-    struct DLLNode *next;
-    struct DLLNode *prev;
-} DLLNode;
+    struct DLLIntNode *next;
+    struct DLLIntNode *prev;
+} DLLIntNode;
 
-typedef struct DoubleLinkedList {
+typedef struct DoubleLinkedListInt {
     int length;
-    DLLNode *head;
-    DLLNode *tail;
-} DoubleLinkedList;
+    DLLIntNode *head;
+    DLLIntNode *tail;
+} DoubleLinkedListInt;
 
-DoubleLinkedList DLLGetEmptyList(void);
-void DLLAppend(DoubleLinkedList *list, int value);
-void DLLPrepend(DoubleLinkedList *list, int value);
-int  DLLGetAt(DoubleLinkedList *list, int index);
-int  DLLRemoveFirst(DoubleLinkedList *list);
-int  DLLRemoveLast(DoubleLinkedList *list);
-int  DLLRemoveAt(DoubleLinkedList *list, int index);
-int  DLLRemoveFirst(DoubleLinkedList *list);
-int  DLLRemoveLast(DoubleLinkedList *list);
-void DLLClear(DoubleLinkedList *list);
+DoubleLinkedListInt DLLIntGetEmptyList(void);
+void DLLIntAppend(DoubleLinkedListInt *list, int value);
+void DLLIntPrepend(DoubleLinkedListInt *list, int value);
+int  DLLIntGetAt(DoubleLinkedListInt *list, int index);
+int  DLLIntRemoveFirst(DoubleLinkedListInt *list);
+int  DLLIntRemoveLast(DoubleLinkedListInt *list);
+int  DLLIntRemoveAt(DoubleLinkedListInt *list, int index);
+int  DLLIntRemoveFirst(DoubleLinkedListInt *list);
+int  DLLIntRemoveLast(DoubleLinkedListInt *list);
+void DLLIntClear(DoubleLinkedListInt *list);
 
+#endif
