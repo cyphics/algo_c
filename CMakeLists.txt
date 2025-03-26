@@ -6,7 +6,7 @@ add_library(
   algo_lib.c 
   helpers.c 
   linked_list.c 
-  test_linked_list.c 
+  test/test_linked_list.c 
   queue.c 
   ringBuffer.c 
   quick_sort.c 
@@ -16,7 +16,7 @@ target_include_directories(algo_lib
                            INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}
                            )
 
-add_executable(algo_test algo_test.c)
+add_executable(algo_test test/algo_test.c)
 target_link_libraries(algo_test PUBLIC algo_lib)
 set_target_properties(algo_test PROPERTIES LINK_FLAGS -lcunit)
 target_include_directories(algo_lib PUBLIC "${PROJECT_BINARY_DIR}")

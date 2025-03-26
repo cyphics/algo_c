@@ -1,4 +1,4 @@
-#include "linked_list.h"
+#include "../linked_list.h"
 #include <CUnit/Basic.h>
 #include <CUnit/CUnit.h>
 #include <CUnit/TestDB.h>

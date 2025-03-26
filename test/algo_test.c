@@ -5,12 +5,12 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>
-#include "algo_lib.h"
-#include "helpers.h"
-#include "queue.h"
-#include "ringBuffer.h"
-#include "quick_sort.h"
-#include "trees.h"
+#include "../algo_lib.h"
+#include "../helpers.h"
+#include "../queue.h"
+#include "../ringBuffer.h"
+#include "../quick_sort.h"
+#include "../trees.h"
 
 
 
