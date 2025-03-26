@@ -9,14 +9,14 @@ int NumChildren(BinaryNode *node) {
     return left + right;
 }
 
-void WalkTreePreorder(BinaryNode *node, DoubleLinkedListInt *storage) {
+void WalkTreePreorder(BinaryNode *node, LinkedList *storage) {
     if (node == NULL) return;
     WalkTreePreorder(node->left, storage);
     WalkTreePreorder(node->right, storage);
-    DLLIntAppend(storage, node->value);
+    // LinkedListAppend(storage, node->value);
 }
 
-void PreOrderSearch(BinaryNode *head, DoubleLinkedListInt *storage) {
+void PreOrderSearch(BinaryNode *head, LinkedList *storage) {
     WalkTreePreorder(head, storage);
 }
 

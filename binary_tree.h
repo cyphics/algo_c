@@ -1,7 +1,7 @@
 #ifndef BINARY_TREE_H
 #define BINARY_TREE_H
 
-#include "linked_list_int.h"
+#include "linked_list.h"
 
 typedef struct BinaryNode {
     int value;
@@ -10,6 +10,6 @@ typedef struct BinaryNode {
 } BinaryNode;
 
 int NumChildren(BinaryNode *node);
-void PreOrderSearch(BinaryNode *head, DoubleLinkedListInt *storage);
+void PreOrderSearch(BinaryNode *head, LinkedList *storage);
 
 #endif

@@ -4,27 +4,26 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-typedef struct DLLNode {
+struct LLNode {
     void* data;
-    struct DLLNode *next;
-    struct DLLNode *prev;
-} DLLNode;
+    int size;
+    struct LLNode *next;
+    struct LLNode *prev;
+};
 
-typedef struct DoubleLinkedList {
+typedef struct LinkedList {
     int length;
-    DLLNode *head;
-    DLLNode *tail;
-} DoubleLinkedList;
+    struct LLNode *head;
+    struct LLNode *tail;
+} LinkedList;
 
-DoubleLinkedList DLLGetEmptyList(void);
-void DLLAppend(DoubleLinkedList *list, int value);
-void DLLPrepend(DoubleLinkedList *list, int value);
-int  DLLGetAt(DoubleLinkedList *list, int index);
-int  DLLRemoveFirst(DoubleLinkedList *list);
-int  DLLRemoveLast(DoubleLinkedList *list);
-int  DLLRemoveAt(DoubleLinkedList *list, int index);
-int  DLLRemoveFirst(DoubleLinkedList *list);
-int  DLLRemoveLast(DoubleLinkedList *list);
-void DLLClear(DoubleLinkedList *list);
+LinkedList LinkedListGetEmptyList(void);
+void   LinkedListAppend(LinkedList *list, void* data, int size);
+void   LinkedListPrepend(LinkedList *list, void* data);
+void*  LinkedListGetAt(LinkedList *list, int index);
+void*  LinkedListRemoveFirst(LinkedList *list);
+void*  LinkedListRemoveLast(LinkedList *list);
+void*  LinkedListRemoveAt(LinkedList *list, int index);
+void   LinkedListClear(LinkedList *list);
 
 #endif

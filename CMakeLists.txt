@@ -6,6 +6,7 @@ add_library(
   algo_lib.c 
   helpers.c 
   linked_list.c 
+  test_linked_list.c 
   queue.c 
   ringBuffer.c 
   quick_sort.c 
