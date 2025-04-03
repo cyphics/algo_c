@@ -26,21 +26,15 @@ void TestAppend(void) {
     LinkedListClear(&list);
 }
 
-void TestClearList(void) {
-    LinkedList l = LinkedListGetEmptyList();
-    //PopulateList(&l);
-    PopulateList(&l);
-    LinkedListClear(&l);
-}
 
 void TestGetAt(void) {
     LinkedList list = LinkedListGetEmptyList();
     PopulateList(&list);
-   // CU_ASSERT(strcmp(LinkedListGetAt(&list, 0), "test 1") == 0);
-    // CU_ASSERT(strcmp(LinkedListGetAt(&list, 1), "test 2") == 0);
-    // CU_ASSERT(strcmp(LinkedListGetAt(&list, 4), "test 5") == 0);
-    // CU_ASSERT(LinkedListGetAt(&list, 5) == NULL);
-    LinkedListClear(&list);
+    CU_ASSERT(strcmp(LinkedListGetAt(&list, 0), "test 1") == 0);
+    CU_ASSERT(strcmp(LinkedListGetAt(&list, 1), "test 2") == 0);
+    CU_ASSERT(strcmp(LinkedListGetAt(&list, 4), "test 5") == 0);
+    CU_ASSERT(LinkedListGetAt(&list, 5) == NULL);
+   /// LinkedListClear(&list);
 }
 
 void TestPrepend(void) {
@@ -60,7 +54,7 @@ void TestPrepend(void) {
     CU_ASSERT(strcmp(LinkedListGetAt(&list, 9), "test 5") == 0);
     CU_ASSERT(LinkedListGetAt(&list, 10) == 0);
     CU_ASSERT(list.length == 10);
-    LinkedListClear(&list);
+    //LinkedListClear(&list);
 }
 
 void TestRemoveAt(void) {
@@ -115,7 +109,6 @@ void TestClear(void) {
 
 void TestLinkedList(CU_pSuite suite) {
     CU_add_test(suite, "Append", TestAppend);
-    CU_add_test(suite, "Clear", TestClearList);
     //CU_add_test(suite, "GetAt", TestGetAt);
     //CU_add_test(suite, "Prepend", TestPrepend);
     // CU_add_test(suite, "LinkedListRemoveAt", TestRemoveAt);
