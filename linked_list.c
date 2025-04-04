@@ -86,7 +86,21 @@ void  LinkedListRemoveFirst(LinkedList *list){
     }
 }
 
-void*  LinkedListRemoveLast(LinkedList *list){}
+void*  LinkedListRemoveLast(LinkedList *list){
+    if (list->tail != NULL) {
+        struct LLNode* to_delete = list->tail;
+        if (list->tail->prev != NULL) {
+            list->tail = list->tail->prev;
+        } else {
+            list->head = NULL;
+            list->tail = NULL;
+        }
+        free(to_delete->data);
+        free(to_delete);
+        list->length--;
+    }
+}
+
 void*  LinkedListRemoveAt(LinkedList *list, int index){
 
 }

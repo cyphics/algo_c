@@ -3,6 +3,7 @@
 #include <CUnit/CUnit.h>
 #include <CUnit/TestDB.h>
 #include <CUnit/TestRun.h>
+#include "unittest_helpers.h"
 
 
 void PopulateList(LinkedList *list) {
@@ -29,9 +30,10 @@ void TestAppend(void) {
     PopulateList(&list);
     CU_ASSERT(list.length == 5);
     CU_ASSERT(list.head != NULL);
-    CU_ASSERT(memcmp(list.head->data, "test 1", sizeof("test 1")) == 0);
-    CU_ASSERT(strcmp(list.head->data, "test 1") == 0);
-    CU_ASSERT(strcmp(list.head->next->next->next->next->data, "test 5") == 0);
+    test_equal_data(list.head->data, "test 1", sizeof("test 1"));
+    test_equal_str(list.head->data, "test 1");
+    test_equal_str(list.head->data, "test 1");
+    test_equal_str(list.head->next->next->next->next->data, "test 5");
     CU_ASSERT(list.head->next->next->next->next->next == NULL);
     LinkedListClear(&list);
 }
@@ -45,9 +47,9 @@ void TestClearList(void) {
 void TestGetAt(void) {
     LinkedList list = LinkedListGetEmptyList();
     PopulateList(&list);
-    CU_ASSERT(strcmp(LinkedListGetAt(&list, 0), "test 1") == 0);
-    CU_ASSERT(strcmp(LinkedListGetAt(&list, 1), "test 2") == 0);
-    CU_ASSERT(strcmp(LinkedListGetAt(&list, 4), "test 5") == 0);
+    test_equal_str(LinkedListGetAt(&list, 0), "test 1");
+    test_equal_str(LinkedListGetAt(&list, 1), "test 2");
+    test_equal_str(LinkedListGetAt(&list, 4), "test 5");
     CU_ASSERT(LinkedListGetAt(&list, 5) == NULL);
     LinkedListClear(&list);
 }
@@ -61,10 +63,10 @@ void TestPrepend(void) {
     LinkedListPrepend(&list, "test 8", size);
     LinkedListPrepend(&list, "test 9", size);
     LinkedListPrepend(&list, "test 10", size);
-    CU_ASSERT(strcmp(LinkedListGetAt(&list, 0), "test 10") == 0);
-    CU_ASSERT(strcmp(LinkedListGetAt(&list, 1), "test 9") == 0);
-    CU_ASSERT(strcmp(LinkedListGetAt(&list, 5), "test 1") == 0);
-    CU_ASSERT(strcmp(LinkedListGetAt(&list, 9), "test 5") == 0);
+    test_equal_str(LinkedListGetAt(&list, 0), "test 10");
+    test_equal_str(LinkedListGetAt(&list, 1), "test 9");
+    test_equal_str(LinkedListGetAt(&list, 5), "test 1");
+    test_equal_str(LinkedListGetAt(&list, 9), "test 5");
     CU_ASSERT(LinkedListGetAt(&list, 10) == 0);
     CU_ASSERT(list.length == 10);
     LinkedListClear(&list);
@@ -73,19 +75,19 @@ void TestPrepend(void) {
 void TestRemoveAt(void) {
     LinkedList list = LinkedListGetEmptyList();
     PopulateList(&list);
-    CU_ASSERT(strcmp(LinkedListRemoveAt(&list, 0), "test 1") == 0);
-    // CU_ASSERT(strcmp(LinkedListRemoveAt(&list, 0), "test 2") == 0);
-    // CU_ASSERT(strcmp(LinkedListRemoveAt(&list, 0), "test 3") == 0);
-    // CU_ASSERT(strcmp(LinkedListRemoveAt(&list, 0), "test 4") == 0);
-    // CU_ASSERT(strcmp(LinkedListRemoveAt(&list, 0), "test 5") == 0);
-    // CU_ASSERT(list.length == 0);
-    // CU_ASSERT(strcmp(LinkedListRemoveAt(&list, 3), "test 5") == 0);
-    // CU_ASSERT(strcmp(LinkedListRemoveAt(&list, 2), "test 4") == 0);
-    // CU_ASSERT(strcmp(LinkedListRemoveAt(&list, 0), "test 2") == 0);
+    test_equal_str(LinkedListRemoveAt(&list, 0), "test 1");
+    // test_equal_str(LinkedListRemoveAt(&list, 0), "test 2");
+    // test_equal_str(LinkedListRemoveAt(&list, 0), "test 3");
+    // test_equal_str(LinkedListRemoveAt(&list, 0), "test 4");
+    // test_equal_str(LinkedListRemoveAt(&list, 0), "test 5");
+    // CU_ASSERT(list.length;
+    // test_equal_str(LinkedListRemoveAt(&list, 3), "test 5");
+    // test_equal_str(LinkedListRemoveAt(&list, 2), "test 4");
+    // test_equal_str(LinkedListRemoveAt(&list, 0), "test 2");
     // CU_ASSERT(list.length == 1);
-    // CU_ASSERT(strcmp(LinkedListRemoveAt(&list, 0), "test 3") == 0);
-    // CU_ASSERT(list.length == 0);
-    // CU_ASSERT(LinkedListRemoveAt(&list, 0) == 0);
+    // test_equal_str(LinkedListRemoveAt(&list, 0), "test 3");
+    // CU_ASSERT(list.length;
+    // CU_ASSERT(LinkedListRemoveAt(&list, 0);
     LinkedListClear(&list);
 }
 
@@ -93,13 +95,13 @@ void TestRemoveFirst(void) {
     LinkedList list = LinkedListGetEmptyList();
     PopulateList(&list);
 
-    CU_ASSERT(strcmp(LinkedListGetAt(&list, 0), "test 1") == 0);
+    test_equal_str(LinkedListGetAt(&list, 0), "test 1");
     LinkedListRemoveFirst(&list);
-    CU_ASSERT(strcmp(LinkedListGetAt(&list, 0), "test 2") == 0);
+    test_equal_str(LinkedListGetAt(&list, 0), "test 2");
     LinkedListRemoveFirst(&list);
     LinkedListRemoveFirst(&list);
     LinkedListRemoveFirst(&list);
-    CU_ASSERT(strcmp(LinkedListGetAt(&list, 0), "test 5") == 0);
+    test_equal_str(LinkedListGetAt(&list, 0), "test 5");
     LinkedListRemoveFirst(&list);
     LinkedListRemoveFirst(&list);
     CU_ASSERT(list.head == NULL);
@@ -109,11 +111,11 @@ void TestRemoveFirst(void) {
 void TestLinkedListRemoveLast(void) {
     LinkedList list = LinkedListGetEmptyList();
     PopulateList(&list);
-    CU_ASSERT(strcmp(LinkedListRemoveLast(&list), "test 5") == 0);
-    CU_ASSERT(strcmp(LinkedListRemoveLast(&list), "test 4") == 0);
-    CU_ASSERT(strcmp(LinkedListRemoveLast(&list), "test 3") == 0);
-    CU_ASSERT(strcmp(LinkedListRemoveLast(&list), "test 2") == 0);
-    CU_ASSERT(strcmp(LinkedListRemoveLast(&list), "test 1") == 0);
+    test_equal_str(LinkedListRemoveLast(&list), "test 5");
+    test_equal_str(LinkedListRemoveLast(&list), "test 4");
+    test_equal_str(LinkedListRemoveLast(&list), "test 3");
+    test_equal_str(LinkedListRemoveLast(&list), "test 2");
+    test_equal_str(LinkedListRemoveLast(&list), "test 1");
     LinkedListClear(&list);
 }
 
@@ -132,8 +134,8 @@ void TestLinkedList(CU_pSuite suite) {
     CU_add_test(suite, "GetAt", TestGetAt);
     CU_add_test(suite, "Prepend", TestPrepend);
     CU_add_test(suite, "LinkedListRemoveFirst", TestRemoveFirst);
+    //CU_add_test(suite, "LinkedListRemoveLast", TestLinkedListRemoveLast);
     //CU_add_test(suite, "LinkedListRemoveAt", TestRemoveAt);
-    // CU_add_test(suite, "LinkedListRemoveLast", TestLinkedListRemoveLast);
     CU_add_test(suite, "Clear", TestClear);
 }
 
