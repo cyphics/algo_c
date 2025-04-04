@@ -11,8 +11,8 @@ LinkedList LinkedListGetEmptyList(void){
     return list;
 }
 
-struct LLNode* CreateNode(void* data, int size) {
-    struct LLNode* new = (struct LLNode*)malloc(sizeof(struct LLNode));
+struct Node* CreateNode(void* data, int size) {
+    struct Node* new = (struct Node*)malloc(sizeof(struct Node));
     new->data = malloc(size);
     new->size = size;
     new->next = NULL;
@@ -21,14 +21,14 @@ struct LLNode* CreateNode(void* data, int size) {
     return new;
 }
 
-void add_initial_data(LinkedList *list, struct LLNode new_node) {
+void add_initial_data(LinkedList *list, struct Node new_node) {
     list->head = &new_node;
     list->tail = &new_node;
 }
 
 // Add at the end of list
 void   LinkedListAppend(LinkedList *list, void* data, int size){
-    struct LLNode* new = CreateNode(data, size);
+    struct Node* new = CreateNode(data, size);
     if (list->tail == NULL) {
         list->tail = new;
         list->head = new;
@@ -45,7 +45,7 @@ void   LinkedListAppend(LinkedList *list, void* data, int size){
 
 // Add at the begining of list
 void   LinkedListPrepend(LinkedList *list, void* data, int size){
-    struct LLNode* new = CreateNode(data, size);
+    struct Node* new = CreateNode(data, size);
     if (list->tail == NULL) {
         list->tail = new;
         list->head = new;
@@ -61,7 +61,7 @@ void   LinkedListPrepend(LinkedList *list, void* data, int size){
 }
 
 void*  LinkedListGetAt(LinkedList *list, int index){
-    struct LLNode* node = list->head;
+    struct Node* node = list->head;
     if (index > list->length - 1){
         return NULL;
     }
@@ -71,42 +71,48 @@ void*  LinkedListGetAt(LinkedList *list, int index){
     return node->data;
 }
 
-void  LinkedListRemoveFirst(LinkedList *list){
+void*  LinkedListPopFirst(LinkedList *list){
     if (list->head != NULL) {
-        struct LLNode* to_delete = list->head;
+        Node* to_delete = list->head;
+        void* pop = to_delete->data;
         if (list->head->next != NULL) {
             list->head = list->head->next;
         } else {
             list->head = NULL;
             list->tail = NULL;
         }
-        free(to_delete->data);
         free(to_delete);
         list->length--;
+        return pop;
     }
+    return NULL;
 }
 
-void*  LinkedListRemoveLast(LinkedList *list){
+void*  LinkedListPopLast(LinkedList *list){
     if (list->tail != NULL) {
-        struct LLNode* to_delete = list->tail;
+        struct Node* to_delete = list->tail;
+        void* pop = to_delete->data;
         if (list->tail->prev != NULL) {
             list->tail = list->tail->prev;
         } else {
             list->head = NULL;
             list->tail = NULL;
         }
-        free(to_delete->data);
         free(to_delete);
         list->length--;
+        return pop;
     }
+    return NULL;
 }
 
-void*  LinkedListRemoveAt(LinkedList *list, int index){
+void*  LinkedListPopAt(LinkedList *list, int index){
+    if (index < list->length) {
 
+    }
 }
 
 void   LinkedListClear(LinkedList *list){
     while (list->head != NULL) {
-        LinkedListRemoveFirst(list);
+        free(LinkedListPopFirst(list));
     }
 }

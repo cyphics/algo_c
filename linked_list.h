@@ -4,26 +4,26 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-struct LLNode {
+typedef struct Node {
     void* data;
     int size;
-    struct LLNode *next;
-    struct LLNode *prev;
-};
+    struct Node *next;
+    struct Node *prev;
+} Node;
 
 typedef struct LinkedList {
     int length;
-    struct LLNode *head;
-    struct LLNode *tail;
+    Node *head;
+    Node *tail;
 } LinkedList;
 
 LinkedList LinkedListGetEmptyList(void);
 void   LinkedListAppend(LinkedList *list, void* data, int size);
 void   LinkedListPrepend(LinkedList *list, void* data, int size);
 void*  LinkedListGetAt(LinkedList *list, int index);
-void   LinkedListRemoveFirst(LinkedList *list);
-void*  LinkedListRemoveLast(LinkedList *list);
-void*  LinkedListRemoveAt(LinkedList *list, int index);
+void*  LinkedListPopFirst(LinkedList *list);
+void*  LinkedListPopLast(LinkedList *list);
+void*  LinkedListPopAt(LinkedList *list, int index);
 void   LinkedListClear(LinkedList *list);
 
 #endif
