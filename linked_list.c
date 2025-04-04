@@ -92,19 +92,7 @@ void*  LinkedListRemoveAt(LinkedList *list, int index){
 }
 
 void   LinkedListClear(LinkedList *list){
-    struct LLNode* current = list->head;
-    while (current != NULL) {
-        struct LLNode* next = NULL;
-        if(current->data != NULL) {
-            free(current->data);
-        }
-        if (current->next != NULL) {
-            next = current->next;
-        } 
-        free(current);
-        list->length--;
-        current = next;
+    while (list->head != NULL) {
+        LinkedListRemoveFirst(list);
     }
-    list->head = NULL;
-    list->tail = NULL;
 }
