@@ -21,7 +21,7 @@ struct LLNode* CreateNode(void* data, int size) {
     return new;
 }
 
-void add_first_data(LinkedList *list, struct LLNode new_node) {
+void add_initial_data(LinkedList *list, struct LLNode new_node) {
     list->head = &new_node;
     list->tail = &new_node;
 }
@@ -71,26 +71,38 @@ void*  LinkedListGetAt(LinkedList *list, int index){
     return node->data;
 }
 
+void  LinkedListRemoveFirst(LinkedList *list){
+    if (list->head != NULL) {
+        struct LLNode* to_delete = list->head;
+        if (list->head->next != NULL) {
+            list->head = list->head->next;
+        } else {
+            list->head = NULL;
+            list->tail = NULL;
+        }
+        free(to_delete->data);
+        free(to_delete);
+        list->length--;
+    }
+}
 
-void*  LinkedListRemoveFirst(LinkedList *list){}
 void*  LinkedListRemoveLast(LinkedList *list){}
-void*  LinkedListRemoveAt(LinkedList *list, int index){}
+void*  LinkedListRemoveAt(LinkedList *list, int index){
+
+}
 
 void   LinkedListClear(LinkedList *list){
-    int counter = 0;
     struct LLNode* current = list->head;
     while (current != NULL) {
-        printf("Round %i\n", counter);
-        counter++;
         struct LLNode* next = NULL;
         if(current->data != NULL) {
-            printf("Current: %s\n", (char*)current->data);
-            //free(current->data);
+            free(current->data);
         }
         if (current->next != NULL) {
             next = current->next;
         } 
         free(current);
+        list->length--;
         current = next;
     }
     list->head = NULL;

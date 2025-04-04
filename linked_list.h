@@ -21,7 +21,7 @@ LinkedList LinkedListGetEmptyList(void);
 void   LinkedListAppend(LinkedList *list, void* data, int size);
 void   LinkedListPrepend(LinkedList *list, void* data, int size);
 void*  LinkedListGetAt(LinkedList *list, int index);
-void*  LinkedListRemoveFirst(LinkedList *list);
+void   LinkedListRemoveFirst(LinkedList *list);
 void*  LinkedListRemoveLast(LinkedList *list);
 void*  LinkedListRemoveAt(LinkedList *list, int index);
 void   LinkedListClear(LinkedList *list);
