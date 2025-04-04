@@ -15,6 +15,8 @@ struct LLNode* CreateNode(void* data, int size) {
     struct LLNode* new = (struct LLNode*)malloc(sizeof(struct LLNode));
     new->data = malloc(size);
     new->size = size;
+    new->next = NULL;
+    new->prev = NULL;
     memcpy(new->data, data, size);
     return new;
 }
@@ -68,6 +70,7 @@ void*  LinkedListGetAt(LinkedList *list, int index){
     }
     return node->data;
 }
+
 
 void*  LinkedListRemoveFirst(LinkedList *list){}
 void*  LinkedListRemoveLast(LinkedList *list){}

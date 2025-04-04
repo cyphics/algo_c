@@ -14,6 +14,16 @@ void PopulateList(LinkedList *list) {
     LinkedListAppend(list, "test 5", size);
 }
 
+void TestPrintList(LinkedList *l) {
+    struct LLNode *current = l->head;
+    int counter = 0;
+    while (current != NULL && counter < 10) {
+        printf("Node %i: %s\n", counter, (char*)current->data);
+        current = current->next;
+        counter++;
+    }
+}
+
 void TestAppend(void) {
     LinkedList list = LinkedListGetEmptyList();
     PopulateList(&list);
@@ -23,6 +33,7 @@ void TestAppend(void) {
     CU_ASSERT(strcmp(list.head->data, "test 1") == 0);
     CU_ASSERT(strcmp(list.head->next->next->next->next->data, "test 5") == 0);
     CU_ASSERT(list.head->next->next->next->next->next == NULL);
+    TestPrintList(&list); 
     LinkedListClear(&list);
 }
 
@@ -30,6 +41,7 @@ void TestClearList(void) {
     LinkedList l = LinkedListGetEmptyList();
     //PopulateList(&l);
     PopulateList(&l);
+    TestPrintList(&l);
     LinkedListClear(&l);
 }
 
