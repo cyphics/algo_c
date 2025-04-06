@@ -1,4 +1,4 @@
-#include "algo_lib.h"
+#include "algorithms.h"
 #include "helpers.h"
 #include <stdbool.h>
 #include <stdint.h>

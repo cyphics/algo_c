@@ -1,23 +1,11 @@
 cmake_minimum_required(VERSION 3.15)
 project(algo_lib VERSION 1.0 LANGUAGES C)
 
-add_library(
-  algo_lib 
-  algo_lib.c 
-  helpers.c 
-  linked_list.c 
-  test/test_linked_list.c 
-  queue.c 
-  ringBuffer.c 
-  quick_sort.c 
-  binary_tree.c)
+# Set the C standard for C99
+set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_STANDARD_REQUIRED ON)
 
-target_include_directories(algo_lib
-                           INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}
-                           )
+add_subdirectory(src)
+add_subdirectory(test)
 
-add_executable(algo_test test/algo_test.c)
-target_link_libraries(algo_test PUBLIC algo_lib)
-set_target_properties(algo_test PROPERTIES LINK_FLAGS -lcunit)
-target_include_directories(algo_lib PUBLIC "${PROJECT_BINARY_DIR}")
-
+enable_testing()

@@ -5,13 +5,13 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>
-#include "../algo_lib.h"
-#include "../helpers.h"
-#include "../queue.h"
-#include "../ringBuffer.h"
-#include "../quick_sort.h"
-#include "../trees.h"
-#include "../test/test_linked_list.h"
+#include "algorithms.h"
+// #include "../helpers.h"
+// #include "../queue.h"
+// #include "../ringBuffer.h"
+// #include "../quick_sort.h"
+// #include "../trees.h"
+// #include "../test/test_linked_list.h"
 
 
 
