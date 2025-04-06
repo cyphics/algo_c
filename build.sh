@@ -3,9 +3,13 @@ set -e
 mkdir -p build/
 cd build/
 
-# cmake -D "CMAKE_C_FLAGS=-Wall"  ..
-cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -D CMAKE_C_COMPILER=clang -D "CMAKE_C_FLAGS=-gdwarf-4 -Wall -Wpedantic -Wextra -Wno-unreachable-code  -Wno-unused-function -fno-stack-protector" ..
-# cmake -D "CMAKE_C_FLAGS=-pedantic -Wno-unreachable-code -Wno-unused-function" ..
-cmake --build .
+cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 \
+	  -DCMAKE_C_COMPILER=clang \
+	  -DCMAKE_C_FLAGS="-O0 -g -gdwarf-4 -Wall -Wpedantic -Wextra -Wno-unreachable-code  -Wno-unused-function -fstack-protector -fno-omit-frame-pointer" ..
+cmake --build . --parallel 
 
-./algo_test
+ctest  || {
+  echo ""
+  # echo "Tests failed! Running gdb on the test binary..."
+  # gdb -ex "run" -ex "bt full" ./build/test/UnitTests
+}

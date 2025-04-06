@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+// TODO make this private
 typedef struct Node {
     void* data;
     int size;
@@ -11,19 +12,19 @@ typedef struct Node {
     struct Node *prev;
 } Node;
 
-typedef struct LinkedList {
+typedef struct DoubleLinkedList {
     int length;
     Node *head;
     Node *tail;
-} LinkedList;
+} DLList;
 
-LinkedList LinkedListGetEmptyList(void);
-void   LinkedListAppend(LinkedList *list, void* data, int size);
-void   LinkedListPrepend(LinkedList *list, void* data, int size);
-void*  LinkedListGetAt(LinkedList *list, int index);
-void*  LinkedListPopFirst(LinkedList *list);
-void*  LinkedListPopLast(LinkedList *list);
-void*  LinkedListPopAt(LinkedList *list, int index);
-void   LinkedListClear(LinkedList *list);
+DLList get_empty_dllist(void);
+void   dllist_append(DLList *list, void* data, int size);
+void   dllist_prepend(DLList *list, void* data, int size);
+void*  dllist_get_at(DLList *list, int index);
+void*  dllist_pop_first(DLList *list);
+void*  dllist_pop_last(DLList *list);
+void*  dllist_pop_at(DLList *list, int index);
+void   dllist_clear(DLList *list);
 
 #endif

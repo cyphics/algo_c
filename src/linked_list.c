@@ -3,7 +3,10 @@
 #include <string.h>
 #include <stdio.h>
 
-LinkedList LinkedListGetEmptyList(void){
+// TODO remove
+#define LinkedList DLList
+
+LinkedList get_empty_dllist(void){
     LinkedList list;
     list.length = 0;
     list.head = NULL;
@@ -27,7 +30,7 @@ void add_initial_data(LinkedList *list, struct Node new_node) {
 }
 
 // Add at the end of list
-void   LinkedListAppend(LinkedList *list, void* data, int size){
+void   dllist_append(LinkedList *list, void* data, int size){
     struct Node* new = CreateNode(data, size);
     if (list->tail == NULL) {
         list->tail = new;
@@ -44,7 +47,7 @@ void   LinkedListAppend(LinkedList *list, void* data, int size){
 }
 
 // Add at the begining of list
-void   LinkedListPrepend(LinkedList *list, void* data, int size){
+void   dllist_prepend(LinkedList *list, void* data, int size){
     struct Node* new = CreateNode(data, size);
     if (list->tail == NULL) {
         list->tail = new;
@@ -60,7 +63,7 @@ void   LinkedListPrepend(LinkedList *list, void* data, int size){
     list->length ++;
 }
 
-void*  LinkedListGetAt(LinkedList *list, int index){
+void*  dllist_get_at(LinkedList *list, int index){
     struct Node* node = list->head;
     if (index > list->length - 1){
         return NULL;
@@ -71,7 +74,7 @@ void*  LinkedListGetAt(LinkedList *list, int index){
     return node->data;
 }
 
-void*  LinkedListPopFirst(LinkedList *list){
+void*  dllist_pop_first(LinkedList *list){
     if (list->head != NULL) {
         Node* to_delete = list->head;
         void* pop = to_delete->data;
@@ -88,7 +91,7 @@ void*  LinkedListPopFirst(LinkedList *list){
     return NULL;
 }
 
-void*  LinkedListPopLast(LinkedList *list){
+void*  dllist_pop_last(LinkedList *list){
     if (list->tail != NULL) {
         struct Node* to_delete = list->tail;
         void* pop = to_delete->data;
@@ -105,14 +108,14 @@ void*  LinkedListPopLast(LinkedList *list){
     return NULL;
 }
 
-void*  LinkedListPopAt(LinkedList *list, int index){
+void*  dllist_pop_at(LinkedList *list, int index){
     if (index < list->length) {
 
     }
 }
 
-void   LinkedListClear(LinkedList *list){
+void   dllist_clear(LinkedList *list){
     while (list->head != NULL) {
-        free(LinkedListPopFirst(list));
+        free(dllist_pop_first(list));
     }
 }

@@ -3,12 +3,22 @@ add_library(Unity
   ../extern/Unity/src/unity.c
 )
 
+# set dir where all tests are located
+set(TESTS_DIR ${CMAKE_SOURCE_DIR}/test)
+
+# auto find all test .c files
+file(GLOB TEST_FILES "${TESTS_DIR}/*.c")
+
+message(STATUS "Found test files: ${TEST_FILES}")
+
 # Add test exec
 add_executable(UnitTests
   ./test_main.c
-  # ./algo_test.c
-  # ./test_linked_list.c
+  ./test_linked_list.c
+  # ${TEST_FILES}
 )
+
+set_target_properties(UnitTests PROPERTIES LINK_FLAGS -lcunit)
 
 target_include_directories(UnitTests PRIVATE
   ../extern/Unity/src 

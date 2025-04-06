@@ -3,6 +3,9 @@
 
 #include "linked_list.h"
 
+// TODO remove
+#define LinkedList DLList
+
 typedef struct BinaryNode {
     int value;
     struct BinaryNode *left;
@@ -10,6 +13,6 @@ typedef struct BinaryNode {
 } BinaryNode;
 
 int NumChildren(BinaryNode *node);
-void PreOrderSearch(BinaryNode *head, LinkedList *storage);
+void PreOrderSearch(BinaryNode *head, DLList *storage);
 
 #endif
