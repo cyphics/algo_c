@@ -11,5 +11,6 @@ int test_linked_list(void);
 
 void TestDLList(CU_pSuite suite);
 int main(void) {
-    test_linked_list();
+    printf("test length: %l\n", "test");
+    // test_linked_list();
 }

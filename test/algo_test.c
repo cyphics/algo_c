@@ -4,20 +4,7 @@
 #include <CUnit/TestRun.h>
 #include <stdbool.h>
 #include <stdint.h>
-#include <stdlib.h>
 #include "algorithms.h"
-// #include "../helpers.h"
-// #include "../queue.h"
-// #include "../ringBuffer.h"
-// #include "../quick_sort.h"
-// #include "../trees.h"
-// #include "../test/test_linked_list.h"
-
-
-
-void TestStack(CU_pSuite suite) {
-
-}
 
 void TestQueue(void) {
     Queue list = GetQueue();
@@ -135,18 +122,12 @@ void TestBinarytree(void) {
     PreOrderSearch(node1, &storage1);
     PreOrderSearch(node2, &storage2);
 
-    /*CU_ASSERT(CompareIntArrays(sorted1, expected1, 10) == true);*/
-    /*CU_ASSERT(CompareIntArrays(sorted2, expected2, 11) == true);*/
 }
 
 int main(void) {
     CU_initialize_registry();
     CU_pSuite suite = CU_add_suite("Sorting", 0, 0);
     TestLinkedList(suite);
-    /*CU_add_test(suite, "Queue", TestQueue);*/
-    /*CU_add_test(suite, "Ring Buffer", TestRingBuffer);*/
-    // CU_add_test(suite, "Quick Sort", TestQuickSort);
-    // CU_add_test(suite, "Binary Tree", TestBinarytree);
     TestStack(suite);
     CU_basic_run_tests();
     CU_cleanup_registry();
