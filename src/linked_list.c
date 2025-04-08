@@ -14,8 +14,8 @@ LinkedList get_empty_dllist(void){
     return list;
 }
 
-struct Node* CreateNode(void* data, int size) {
-    struct Node* new = (struct Node*)malloc(sizeof(struct Node));
+Node* CreateNode(void* data, int size) {
+    Node* new = (Node*)malloc(sizeof(Node));
     new->data = malloc(size);
     new->size = size;
     new->next = NULL;
@@ -24,14 +24,14 @@ struct Node* CreateNode(void* data, int size) {
     return new;
 }
 
-void add_initial_data(LinkedList *list, struct Node new_node) {
+void add_initial_data(LinkedList *list, Node new_node) {
     list->head = &new_node;
     list->tail = &new_node;
 }
 
 // Add at the end of list
 void   dllist_append(LinkedList *list, void* data, int size){
-    struct Node* new = CreateNode(data, size);
+    Node* new = CreateNode(data, size);
     if (list->tail == NULL) {
         list->tail = new;
         list->head = new;
@@ -48,7 +48,7 @@ void   dllist_append(LinkedList *list, void* data, int size){
 
 // Add at the begining of list
 void   dllist_prepend(LinkedList *list, void* data, int size){
-    struct Node* new = CreateNode(data, size);
+    Node* new = CreateNode(data, size);
     if (list->tail == NULL) {
         list->tail = new;
         list->head = new;
@@ -64,13 +64,14 @@ void   dllist_prepend(LinkedList *list, void* data, int size){
 }
 
 void*  dllist_get_at(LinkedList *list, int index){
-    struct Node* node = list->head;
+    Node* node = list->head;
     if (index > list->length - 1){
         return NULL;
     }
     for (int i = 0; i < index; i++) {
         node = node->next;
     }
+    // TODO check what happens if caller free() returned data
     return node->data;
 }
 
@@ -93,7 +94,7 @@ void*  dllist_pop_first(LinkedList *list){
 
 void*  dllist_pop_last(LinkedList *list){
     if (list->tail != NULL) {
-        struct Node* to_delete = list->tail;
+        Node* to_delete = list->tail;
         void* pop = to_delete->data;
         if (list->tail->prev != NULL) {
             list->tail = list->tail->prev;
@@ -109,9 +110,24 @@ void*  dllist_pop_last(LinkedList *list){
 }
 
 void*  dllist_pop_at(LinkedList *list, int index){
-    if (index < list->length) {
-
+    if (index >= 0 && index < list->length) {
+        Node* to_pop = list->head;
+        for (int i = 0; i < index; i++) {
+            to_pop = to_pop->next;
+        }
+        void* pop = to_pop->data;
+        if(to_pop->prev == NULL) {
+            list->head = list->head->next;
+        } else if (to_pop->next == NULL) {
+        } else {
+            to_pop->prev->next = to_pop->next;
+            to_pop->next->prev = to_pop->prev;
+        }
+        free(to_pop);
+        list->length--;
+        return pop;
     }
+    return NULL;
 }
 
 void   dllist_clear(LinkedList *list){
