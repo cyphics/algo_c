@@ -96,6 +96,18 @@ void test_pop_last(void) {
         TEST_ASSERT_EQUAL_STRING(expected, result);
         free(result);
     }
+
+    dllist_append(&list, "blah1", sizeof("blah1"));
+    dllist_append(&list, "blah2", sizeof("blah2"));
+    dllist_append(&list, "blah3", sizeof("blah3"));
+    char* pop = dllist_pop_last(&list);
+    TEST_ASSERT_EQUAL_STRING("blah3", pop);
+    dllist_append(&list, "blah4", sizeof("blah4"));
+    free(pop);
+    pop = dllist_pop_last(&list);
+    TEST_ASSERT_EQUAL_STRING("blah4", pop);
+    free(pop);
+
     dllist_clear(&list);
 }
 
@@ -103,44 +115,12 @@ void test_pop_at(void) {
     DLList list = get_empty_dllist();
     _populate_list(&list);
     TEST_ASSERT_EQUAL_STRING("test 4", dllist_pop_at(&list, 3));
-    // TEST_ASSERT_EQUAL_STRING("test 1", dllist_pop_at(&list, 0));
-    // TEST_ASSERT_EQUAL_STRING("test 3", dllist_pop_at(&list, 3));
-    // TEST_ASSERT_EQUAL_STRING("test 5", dllist_pop_at(&list, 1));
-    // TEST_ASSERT_EQUAL_STRING("test 2", dllist_pop_at(&list, 0));
-    // TEST_ASSERT_EQUAL_STRING("test 1", dllist_pop_at(&list, 0));
-    // test_equal_str(DLListRemoveAt(&list, 0), "test 2");
-    // test_equal_str(DLListRemoveAt(&list, 0), "test 3");
-    // test_equal_str(DLListRemoveAt(&list, 0), "test 4");
-    // test_equal_str(DLListRemoveAt(&list, 0), "test 5");
-    // CU_ASSERT(list.length;
-    // test_equal_str(DLListRemoveAt(&list, 3), "test 5");
-    // test_equal_str(DLListRemoveAt(&list, 2), "test 4");
-    // test_equal_str(DLListRemoveAt(&list, 0), "test 2");
-    // CU_ASSERT(list.length == 1);
-    // test_equal_str(DLListRemoveAt(&list, 0), "test 3");
-    // CU_ASSERT(list.length;
-    // CU_ASSERT(DLListRemoveAt(&list, 0);
+    TEST_ASSERT_EQUAL_STRING("test 1", dllist_pop_at(&list, 0));
+    TEST_ASSERT_EQUAL_STRING(NULL, dllist_pop_at(&list, 3));
+    TEST_ASSERT_EQUAL_STRING("test 5", dllist_pop_at(&list, 2));
+    TEST_ASSERT_EQUAL_STRING("test 2", dllist_pop_at(&list, 0));
 }
 
-// void TestClear(void) {
-//     DLList list = get_empty_dllist();
-//     _populate_list(&list);
-//     dllist_clear(&list);
-//     CU_ASSERT(list.length == 0);
-//     CU_ASSERT(list.head == NULL);
-//     CU_ASSERT(list.tail == NULL);
-// }
-//
-// void TestDLList(CU_pSuite suite) {
-    // CU_add_test(suite, "Append", test_append);
-    // CU_add_test(suite, "Clear", TestClearList);
-    // CU_add_test(suite, "GetAt", TestGetAt);
-    // CU_add_test(suite, "Prepend", TestPrepend);
-    // CU_add_test(suite, "DLListPopFirst", TestPopFirst);
-    // CU_add_test(suite, "DLListPopLast", TestLinkedListPopLast);
-    // CU_add_test(suite, "DLListPopAt", TestPopAt);
-    // CU_add_test(suite, "Clear", TestClear);
-// }
 
 int test_linked_list(void){
     UNITY_BEGIN();  // Initialize Unity

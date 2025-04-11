@@ -16,7 +16,14 @@ LinkedList get_empty_dllist(void){
 
 Node* CreateNode(void* data, int size) {
     Node* new = (Node*)malloc(sizeof(Node));
+    if (new == NULL) {
+        return NULL;
+    }
     new->data = malloc(size);
+    if (new->data == NULL) {
+        free(new);
+        return NULL;
+    }
     new->size = size;
     new->next = NULL;
     new->prev = NULL;
@@ -81,6 +88,7 @@ void*  dllist_pop_first(LinkedList *list){
         void* pop = to_delete->data;
         if (list->head->next != NULL) {
             list->head = list->head->next;
+            list->head->prev = NULL;
         } else {
             list->head = NULL;
             list->tail = NULL;
@@ -93,11 +101,15 @@ void*  dllist_pop_first(LinkedList *list){
 }
 
 void*  dllist_pop_last(LinkedList *list){
+        Node* to_delete = NULL;
+        void* pop = NULL;
+
     if (list->tail != NULL) {
-        Node* to_delete = list->tail;
-        void* pop = to_delete->data;
+        to_delete = list->tail;
+        pop = to_delete->data;
         if (list->tail->prev != NULL) {
             list->tail = list->tail->prev;
+            list->tail->next = NULL;
         } else {
             list->head = NULL;
             list->tail = NULL;
