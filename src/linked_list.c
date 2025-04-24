@@ -85,7 +85,7 @@ void*  dllist_get_at(LinkedList *list, int index){
 void*  dllist_pop_first(LinkedList *list){
     if (list->head != NULL) {
         Node* to_delete = list->head;
-        void* pop = to_delete->data;
+        void* to_pop = to_delete->data;
         if (list->head->next != NULL) {
             list->head = list->head->next;
             list->head->prev = NULL;
@@ -95,7 +95,7 @@ void*  dllist_pop_first(LinkedList *list){
         }
         free(to_delete);
         list->length--;
-        return pop;
+        return to_pop;
     }
     return NULL;
 }
