@@ -1,4 +1,5 @@
-
+#ifndef RING_BUFFER_H
+#define RING_BUFFER_H
 
 typedef struct RingBuffer {
     int capacity;
@@ -17,3 +18,5 @@ int  PeekStart(RingBuffer *buffer);
 int  PeekEnd(RingBuffer *buffer);
 void PrintRingBuffer(RingBuffer *buffer);
 void ClearBuffer(RingBuffer *buffer);
+
+#endif

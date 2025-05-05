@@ -38,7 +38,7 @@ void PrintRingBuffer(RingBuffer *buffer) {
 
 void CheckSize(RingBuffer *buffer){
     if(buffer->length == buffer->capacity) {
-        int *new_heap = malloc(2 * buffer->capacity * sizeof(int));
+        int *new_heap = calloc(2 * buffer->capacity * sizeof(int), sizeof(int));
         for (int i = 0; i < buffer->capacity; i++) {
             int position = (buffer->tail + i + 1) % buffer->capacity;
             int value = *(buffer->heap_position + position);
