@@ -96,8 +96,17 @@ void AddToEnd(RingBuffer *buffer, int value) {
 int PeekStart(RingBuffer *buffer) {
     return *(buffer->heap_position + buffer->head);
 }
+
 int PeekEnd(RingBuffer *buffer) {
     return *(buffer->heap_position + buffer->tail);
+}
+
+int PeekAt(RingBuffer *buffer, int index) {
+    int ptr = buffer->head;
+    for (int i = 0; i<index; i++) {
+        IncrementPointer(buffer, &ptr);
+    }
+    return *GetAddress(buffer, ptr);
 }
 
 int RemoveFromStart(RingBuffer *buffer) {
@@ -125,4 +134,9 @@ void ClearBuffer(RingBuffer *buffer) {
         buffer->head = 0;
         buffer->length = 0;
     }
+}
+
+void RingBufferToArray(RingBuffer* buffer) {
+    int arr[buffer->length];
+
 }

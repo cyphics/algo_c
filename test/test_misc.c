@@ -73,6 +73,11 @@ void test_ring_buffer(void) {
     PrintRingBuffer(&buffer);
     AddToEnd(&buffer, 6);
     PrintRingBuffer(&buffer);
+
+    TEST_ASSERT_EQUAL(PeekAt(&buffer, 0), 1);
+    TEST_ASSERT_EQUAL(PeekAt(&buffer, 3), 4);
+    TEST_ASSERT_EQUAL(PeekAt(&buffer, 5), 6);
+    TEST_ASSERT_EQUAL(PeekAt(&buffer, 6), 0);
     ClearBuffer(&buffer);
     free(buffer.heap_position);
 }
