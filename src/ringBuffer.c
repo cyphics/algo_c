@@ -136,7 +136,14 @@ void ClearBuffer(RingBuffer *buffer) {
     }
 }
 
-void RingBufferToArray(RingBuffer* buffer) {
-    int arr[buffer->length];
-
+int* RingBufferToArray(RingBuffer* buffer) {
+    int *arr = calloc(sizeof(int) * buffer->length, sizeof(int));
+    int ptr = buffer->head;
+    for (int i = 0; i < buffer->length; i++) {
+        arr[i] = *GetAddress(buffer, ptr);
+        printf("[%i]", arr[i]);
+        IncrementPointer(buffer, &ptr);
+    }
+    printf("\n");
+    return arr;
 }

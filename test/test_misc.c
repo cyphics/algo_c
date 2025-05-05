@@ -78,6 +78,11 @@ void test_ring_buffer(void) {
     TEST_ASSERT_EQUAL(PeekAt(&buffer, 3), 4);
     TEST_ASSERT_EQUAL(PeekAt(&buffer, 5), 6);
     TEST_ASSERT_EQUAL(PeekAt(&buffer, 6), 0);
+
+    int expected[] = {1, 2, 3, 4, 5, 6, 0, 0, 0, 0};
+    int *arr = RingBufferToArray(&buffer);
+    TEST_ASSERT_EQUAL_INT32_ARRAY(expected, arr, 10);
+
     ClearBuffer(&buffer);
     free(buffer.heap_position);
 }
