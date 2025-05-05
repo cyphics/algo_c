@@ -2,21 +2,6 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-BinaryNode *GetNode(int value) {
-    BinaryNode *node = malloc(sizeof(BinaryNode));
-    node->right = NULL;
-    node->left = NULL;
-    node->value = value;
-    return node;
-}
-
-BinaryNode *CreateHead(int value, BinaryNode *right, BinaryNode *left) {
-    BinaryNode *head = GetNode(value);
-    head->right = right;
-    head->left = left;
-    return head;
-}
-
 BinaryNode *InitBinaryTree(void) {
     BinaryNode *right = NULL;
     BinaryNode *head = NULL;
@@ -77,5 +62,4 @@ BinaryNode *InitBinaryTree2(void) {
     head = CreateHead(20, tmp, right);
     return head;
 }
-
 

@@ -49,7 +49,7 @@ void test_ring_buffer(void) {
     TEST_ASSERT_EQUAL(PeekEnd(&buffer), 1);
     TEST_ASSERT_EQUAL(buffer.length, 1);
 
-    PrintRingBuffer(&buffer);
+    // PrintRingBuffer(&buffer);
     AddToStart(&buffer, 4);
     AddToStart(&buffer, 5);
     AddToStart(&buffer, 6);
@@ -61,18 +61,18 @@ void test_ring_buffer(void) {
     AddToStart(&buffer, 7);
     AddToStart(&buffer, 9);
     AddToStart(&buffer, 9);
-    PrintRingBuffer(&buffer);
+    // PrintRingBuffer(&buffer);
 
     ClearBuffer(&buffer);
-    PrintRingBuffer(&buffer);
+    // PrintRingBuffer(&buffer);
     AddToEnd(&buffer, 1);
     AddToEnd(&buffer, 2);
     AddToEnd(&buffer, 3);
     AddToEnd(&buffer, 4);
     AddToEnd(&buffer, 5);
-    PrintRingBuffer(&buffer);
+    // PrintRingBuffer(&buffer);
     AddToEnd(&buffer, 6);
-    PrintRingBuffer(&buffer);
+    // PrintRingBuffer(&buffer);
 
     TEST_ASSERT_EQUAL(PeekAt(&buffer, 0), 1);
     TEST_ASSERT_EQUAL(PeekAt(&buffer, 3), 4);

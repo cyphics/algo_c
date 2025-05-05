@@ -1,10 +1,7 @@
 #ifndef BINARY_TREE_H
 #define BINARY_TREE_H
 
-#include "linked_list.h"
-
-// TODO remove
-#define LinkedList DLList
+#include "ringBuffer.h"
 
 typedef struct BinaryNode {
     int value;
@@ -12,7 +9,12 @@ typedef struct BinaryNode {
     struct BinaryNode *right;
 } BinaryNode;
 
+BinaryNode *GetNode(int value);
+BinaryNode *CreateHead(int value, BinaryNode *right, BinaryNode *left);
+
+
+
 int NumChildren(BinaryNode *node);
-void PreOrderSearch(BinaryNode *head, DLList *storage);
+void WalkTreePreorder(BinaryNode *node, RingBuffer *storage);
 
 #endif

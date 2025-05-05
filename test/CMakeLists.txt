@@ -15,6 +15,7 @@ message(STATUS "Found test files: ${TEST_FILES}")
 add_executable(UnitTests
   ./test_main.c
   ./test_linked_list.c
+  ./test_binary_tree.c
   ./test_misc.c
   # ${TEST_FILES}
 )
