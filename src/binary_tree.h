@@ -9,8 +9,7 @@ typedef struct BinaryNode {
     struct BinaryNode *right;
 } BinaryNode;
 
-BinaryNode *GetNode(int value);
-BinaryNode *CreateHead(int value, BinaryNode *right, BinaryNode *left);
+BinaryNode *GetNode(int value, BinaryNode *right, BinaryNode *left);
 
 
 
