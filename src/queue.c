@@ -72,7 +72,7 @@ void EnQueue(Queue *queue, void* value) {
 
 void* DeQueue(Queue *queue) {
     if(queue->head == NULL) {
-        return 0;
+        return NULL;
     }
     QueueNode *node = queue->tail;
     void* result = node->value;
@@ -92,4 +92,10 @@ void* PeekQueue(Queue *queue) {
         return 0;
     }
     return queue->tail->value;
+}
+
+void ClearQueue(Queue *queue) {
+    while(PeekQueue(queue) != NULL) {
+        DeQueue(queue);
+    }
 }

@@ -1,3 +1,4 @@
+#include "queue.h"
 #include "unity.h"  // Unity test framework
 #include <stdbool.h>
 #include "binary_tree.h"
@@ -17,9 +18,18 @@ void test_binary_walk(void) {
 
 void test_binary_seach(void) {
     BinaryNode *tree = InitBinaryTree();
-    // TEST_ASSERT_EQUAL(BFSTraversal(tree, 0), false);
-    // TEST_ASSERT_EQUAL(BFSTraversal(tree, 20), true);
-    // TEST_ASSERT_EQUAL(BFSTraversal(tree, 10), true);
+    
+    Queue queue = GetQueue();
+    TEST_ASSERT_EQUAL(BreadthFirstSearch(tree, 0, &queue), false);
+    ClearQueue(&queue);
+    TEST_ASSERT_EQUAL(BreadthFirstSearch(tree, 20, &queue), true);
+    ClearQueue(&queue);
+    TEST_ASSERT_EQUAL(BreadthFirstSearch(tree, 100, &queue), true);
+    ClearQueue(&queue);
+    TEST_ASSERT_EQUAL(BreadthFirstSearch(tree, 31, &queue), false);
+    ClearQueue(&queue);
+    
+
 }
 
 int test_binary_tree(void) {

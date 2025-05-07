@@ -27,7 +27,6 @@ void WalkNodePreorder(BinaryNode *node, RingBuffer *buffer ) {
 }
 
 void WalkTreePreorder(BinaryNode *node, RingBuffer *buffer) {
-    // if (node == NULL) return;
     WalkNodePreorder(node, buffer);
 }
 
@@ -40,9 +39,27 @@ BinaryNode *GetNode(int value, BinaryNode *right, BinaryNode *left) {
 }
 
 // Breadth-Frist Search traversal
-bool BFSTraversal(BinaryNode *node, int value, QueueInt *queue) {
-    if (node->value == value) {
-        return true;
+void BFSTraversal(BinaryNode *node, int value, Queue *queue) {
+    if (node == NULL) return;
+    printf("%i ", node->value);
+    if (node->left != NULL) {
+        EnQueue(queue, node->left);
     }
-    return false;
+    if (node->right != NULL) {
+        EnQueue(queue, node->right);
+    }
+    BFSTraversal(DeQueue(queue), value, queue);
 }
+
+bool BreadthFirstSearch(BinaryNode *node, int value, Queue *queue) {
+    if (node == NULL) return false;
+    if (node->value == value) return true;
+    if (node->left != NULL) {
+        EnQueue(queue, node->left);
+    }
+    if (node->right != NULL) {
+        EnQueue(queue, node->right);
+    }
+    return BreadthFirstSearch(DeQueue(queue), value, queue);
+}
+

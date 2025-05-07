@@ -14,6 +14,6 @@ typedef struct BinaryNode {
 BinaryNode *GetNode(int value, BinaryNode *right, BinaryNode *left);
 int NumChildren(BinaryNode *node);
 void WalkTreePreorder(BinaryNode *node, RingBuffer *storage);
-bool BFSTraversal(BinaryNode *node, int value, QueueInt *queue);
+void BFSTraversal(BinaryNode *node, int value, Queue *queue);
 
 #endif

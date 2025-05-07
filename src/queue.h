@@ -34,5 +34,6 @@ Queue GetQueue(void);
 void EnQueue(Queue *queue, void* value);
 void* DeQueue(Queue *queue);
 void* PeekQueue(Queue *queue); 
+void ClearQueue(Queue *queue);
 
 #endif
