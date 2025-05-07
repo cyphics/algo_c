@@ -1,4 +1,5 @@
 #include "unity.h"  // Unity test framework
+#include <stdbool.h>
 #include "binary_tree.h"
 #include "trees.h"
 #include "unity_internals.h"
@@ -14,8 +15,16 @@ void test_binary_walk(void) {
     TEST_ASSERT_EQUAL_INT32_ARRAY(expected, result, 10);
 }
 
+void test_binary_seach(void) {
+    BinaryNode *tree = InitBinaryTree();
+    // TEST_ASSERT_EQUAL(BFSTraversal(tree, 0), false);
+    // TEST_ASSERT_EQUAL(BFSTraversal(tree, 20), true);
+    // TEST_ASSERT_EQUAL(BFSTraversal(tree, 10), true);
+}
+
 int test_binary_tree(void) {
     UNITY_BEGIN();  // Initialize Unity
     RUN_TEST(test_binary_walk);
+    RUN_TEST(test_binary_seach);
     return UNITY_END();
 }

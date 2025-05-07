@@ -1,15 +1,20 @@
-typedef struct QueueNode {
+#ifndef QUEUE_H
+#define QUEUE_H
+
+typedef struct QueueNodeInt {
     int value;
-    struct QueueNode *next;
-} QueueNode;
+    struct QueueNodeInt *next;
+} QueueNodeInt;
 
-typedef struct Queue {
-    QueueNode *head;
-    QueueNode *tail;
+typedef struct QueueInt {
+    QueueNodeInt *head;
+    QueueNodeInt *tail;
     int length;
-} Queue;
+} QueueInt;
 
-Queue GetQueue(void); 
-void EnQueue(Queue *queue, int value);
-int DeQueue(Queue *queue);
-int PeekQueue(Queue *queue); 
+QueueInt GetQueueInt(void); 
+void EnQueueInt(QueueInt *queue, int value);
+int DeQueueInt(QueueInt *queue);
+int PeekQueueInt(QueueInt *queue); 
+
+#endif

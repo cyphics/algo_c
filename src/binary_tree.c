@@ -1,8 +1,10 @@
 #include "binary_tree.h"
 #include <stdio.h>
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 #include "ringBuffer.h"
+#include "queue.h"
 
 // TODO remove
 
@@ -35,4 +37,12 @@ BinaryNode *GetNode(int value, BinaryNode *right, BinaryNode *left) {
     node->left = left;
     node->value = value;
     return node;
+}
+
+// Breadth-Frist Search traversal
+bool BFSTraversal(BinaryNode *node, int value, QueueInt *queue) {
+    if (node->value == value) {
+        return true;
+    }
+    return false;
 }

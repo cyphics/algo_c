@@ -2,16 +2,16 @@
 #include <stdlib.h>
 #include <string.h>
 
-Queue GetQueue(void) {
-    Queue queue;
+QueueInt GetQueueInt(void) {
+    QueueInt queue;
     queue.head = NULL;
     queue.tail = NULL;
     queue.length = 0;
     return queue;
 }
 
-void EnQueue(Queue *queue, int value) {
-    QueueNode *node = malloc(sizeof(QueueNode));
+void EnQueueInt(QueueInt *queue, int value) {
+    QueueNodeInt *node = malloc(sizeof(QueueNodeInt));
     node->value = value;
     if(queue->head == NULL) {
         queue->head = node;
@@ -24,11 +24,11 @@ void EnQueue(Queue *queue, int value) {
     queue->length++;
 }
 
-int DeQueue(Queue *queue) {
+int DeQueueInt(QueueInt *queue) {
     if(queue->head == NULL) {
         return 0;
     }
-    QueueNode *node = queue->tail;
+    QueueNodeInt *node = queue->tail;
     int result = node->value;
     if (queue->length == 1) {
         queue->head = NULL;
@@ -41,7 +41,7 @@ int DeQueue(Queue *queue) {
     return result;
 }
 
-int PeekQueue(Queue *queue) {
+int PeekQueueInt(QueueInt *queue) {
     if(queue->head == NULL) {
         return 0;
     }

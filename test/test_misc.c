@@ -6,25 +6,25 @@
 
 void test_queue(void) {
     
-    Queue list = GetQueue();
+    QueueInt list = GetQueueInt();
 
-    EnQueue(&list, 5);
-    EnQueue(&list, 7);
-    EnQueue(&list, 9);
+    EnQueueInt(&list, 5);
+    EnQueueInt(&list, 7);
+    EnQueueInt(&list, 9);
 
-    TEST_ASSERT_EQUAL(5, DeQueue(&list));
+    TEST_ASSERT_EQUAL(5, DeQueueInt(&list));
     TEST_ASSERT_EQUAL(2, list.length);
 
-    EnQueue(&list, 11);
-    TEST_ASSERT_EQUAL(7,  DeQueue(&list));
-    TEST_ASSERT_EQUAL(9,  DeQueue(&list));
-    TEST_ASSERT_EQUAL(11, PeekQueue(&list));
-    TEST_ASSERT_EQUAL(11, DeQueue(&list));
-    TEST_ASSERT_EQUAL(0,  DeQueue(&list));
+    EnQueueInt(&list, 11);
+    TEST_ASSERT_EQUAL(7,  DeQueueInt(&list));
+    TEST_ASSERT_EQUAL(9,  DeQueueInt(&list));
+    TEST_ASSERT_EQUAL(11, PeekQueueInt(&list));
+    TEST_ASSERT_EQUAL(11, DeQueueInt(&list));
+    TEST_ASSERT_EQUAL(0,  DeQueueInt(&list));
     TEST_ASSERT_EQUAL(0,  list.length);
 
-    EnQueue(&list, 69);
-    TEST_ASSERT_EQUAL(69, PeekQueue(&list));
+    EnQueueInt(&list, 69);
+    TEST_ASSERT_EQUAL(69, PeekQueueInt(&list));
     TEST_ASSERT_EQUAL(1,  list.length);
 }
 
