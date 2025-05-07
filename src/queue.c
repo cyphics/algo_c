@@ -47,3 +47,49 @@ int PeekQueueInt(QueueInt *queue) {
     }
     return queue->tail->value;
 }
+
+Queue GetQueue(void) {
+    Queue queue;
+    queue.head = NULL;
+    queue.tail = NULL;
+    queue.length = 0;
+    return queue;
+}
+
+void EnQueue(Queue *queue, void* value) {
+    QueueNode *node = malloc(sizeof(QueueNode));
+    node->value = value;
+    if(queue->head == NULL) {
+        queue->head = node;
+        queue->tail = node;
+        node->next = NULL;
+    } else {
+        queue->head->next = node;
+        queue->head = node;
+    }
+    queue->length++;
+}
+
+void* DeQueue(Queue *queue) {
+    if(queue->head == NULL) {
+        return 0;
+    }
+    QueueNode *node = queue->tail;
+    void* result = node->value;
+    if (queue->length == 1) {
+        queue->head = NULL;
+        queue->tail = NULL;
+    } else {
+        queue->tail = node->next;
+    }
+    free(node);
+    queue->length--;
+    return result;
+}
+
+void* PeekQueue(Queue *queue) {
+    if(queue->head == NULL) {
+        return 0;
+    }
+    return queue->tail->value;
+}
