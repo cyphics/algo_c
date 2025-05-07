@@ -96,6 +96,6 @@ void* PeekQueue(Queue *queue) {
 
 void ClearQueue(Queue *queue) {
     while(PeekQueue(queue) != NULL) {
-        DeQueue(queue);
+        free(DeQueue(queue));
     }
 }

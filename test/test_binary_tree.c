@@ -19,17 +19,11 @@ void test_binary_walk(void) {
 void test_binary_seach(void) {
     BinaryNode *tree = InitBinaryTree();
     
-    Queue queue = GetQueue();
-    TEST_ASSERT_EQUAL(BreadthFirstSearch(tree, 0, &queue), false);
-    ClearQueue(&queue);
-    TEST_ASSERT_EQUAL(BreadthFirstSearch(tree, 20, &queue), true);
-    ClearQueue(&queue);
-    TEST_ASSERT_EQUAL(BreadthFirstSearch(tree, 100, &queue), true);
-    ClearQueue(&queue);
-    TEST_ASSERT_EQUAL(BreadthFirstSearch(tree, 31, &queue), false);
-    ClearQueue(&queue);
-    
-
+    TEST_ASSERT_EQUAL(BreadthFirstSearch(tree, 0), false);
+    TEST_ASSERT_EQUAL(BreadthFirstSearch(tree, 20), true);
+    TEST_ASSERT_EQUAL(BreadthFirstSearch(tree, 100), true);
+    TEST_ASSERT_EQUAL(BreadthFirstSearch(tree, 31), false);
+    TEST_ASSERT_EQUAL(BreadthFirstSearch(tree, 7), true);
 }
 
 int test_binary_tree(void) {

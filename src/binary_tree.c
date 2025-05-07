@@ -51,15 +51,22 @@ void BFSTraversal(BinaryNode *node, int value, Queue *queue) {
     BFSTraversal(DeQueue(queue), value, queue);
 }
 
-bool BreadthFirstSearch(BinaryNode *node, int value, Queue *queue) {
-    if (node == NULL) return false;
-    if (node->value == value) return true;
-    if (node->left != NULL) {
-        EnQueue(queue, node->left);
+bool BreadthFirstSearch(BinaryNode *node, int value) {
+    Queue q = GetQueue();
+
+    EnQueue(&q, node);
+
+    while (PeekQueue(&q) != NULL) {
+        BinaryNode *node = DeQueue(&q);
+        if (node->value == value) return true;
+
+        if (node->left != NULL) {
+            EnQueue(&q, node->left);
+        }
+        if (node->right != NULL) {
+            EnQueue(&q, node->right);
+        }
     }
-    if (node->right != NULL) {
-        EnQueue(queue, node->right);
-    }
-    return BreadthFirstSearch(DeQueue(queue), value, queue);
+    return false;
 }
 
