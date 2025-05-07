@@ -26,9 +26,29 @@ void test_binary_seach(void) {
     TEST_ASSERT_EQUAL(BreadthFirstSearch(tree, 7), true);
 }
 
+void test_compare_trees(void) {
+    BinaryNode *t1 = GetNode(30, 
+                        GetNode(45, NULL, NULL), 
+                        GetNode(29, NULL, NULL));
+    BinaryNode *t2 = GetNode(30, 
+                        GetNode(45, 
+                            GetNode(29, NULL, NULL), 
+                            NULL),
+                        NULL);
+    BinaryNode *t3 = GetNode(30, 
+                        GetNode(45, NULL, NULL), 
+                        GetNode(29, GetNode(1, NULL, NULL), NULL));
+
+   TEST_ASSERT_EQUAL(CompareTrees(t1, t1), true);
+   TEST_ASSERT_EQUAL(CompareTrees(t1, t2), false);
+   TEST_ASSERT_EQUAL(CompareTrees(t1, t3), false);
+
+}
+
 int test_binary_tree(void) {
     UNITY_BEGIN();  // Initialize Unity
     RUN_TEST(test_binary_walk);
     RUN_TEST(test_binary_seach);
+    RUN_TEST(test_compare_trees);
     return UNITY_END();
 }

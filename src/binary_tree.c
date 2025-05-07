@@ -70,3 +70,12 @@ bool BreadthFirstSearch(BinaryNode *node, int value) {
     return false;
 }
 
+bool CompareTrees(BinaryNode *n1, BinaryNode *n2) {
+    if (n1 == NULL || n2 == NULL) {
+        return n1 == NULL && n2 == NULL;
+    }
+    if (n1->value != n2->value) {
+        return false;
+    }
+    return CompareTrees(n1->left, n2->left) && CompareTrees(n1->right, n2->right);
+}

@@ -16,5 +16,6 @@ int NumChildren(BinaryNode *node);
 void WalkTreePreorder(BinaryNode *node, RingBuffer *storage);
 void BFSTraversal(BinaryNode *node, int value, Queue *queue);
 bool BreadthFirstSearch(BinaryNode *node, int value);
+bool CompareTrees(BinaryNode *n1, BinaryNode *n2);
 
 #endif
