@@ -6,7 +6,6 @@
 #include "ringBuffer.h"
 #include "queue.h"
 
-// TODO remove
 
 int NumChildren(BinaryNode *node) {
     int left = 0;
@@ -53,9 +52,7 @@ void BFSTraversal(BinaryNode *node, int value, Queue *queue) {
 
 bool BreadthFirstSearch(BinaryNode *node, int value) {
     Queue q = GetQueue();
-
     EnQueue(&q, node);
-
     while (PeekQueue(&q) != NULL) {
         BinaryNode *node = DeQueue(&q);
         if (node->value == value) return true;
@@ -71,11 +68,15 @@ bool BreadthFirstSearch(BinaryNode *node, int value) {
 }
 
 bool CompareTrees(BinaryNode *n1, BinaryNode *n2) {
+    // Structural test
     if (n1 == NULL || n2 == NULL) {
         return n1 == NULL && n2 == NULL;
     }
+
+    // Value (semantic) test
     if (n1->value != n2->value) {
         return false;
     }
+
     return CompareTrees(n1->left, n2->left) && CompareTrees(n1->right, n2->right);
 }

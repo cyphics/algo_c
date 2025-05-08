@@ -26,6 +26,8 @@ void test_queue(void) {
     EnQueueInt(&list, 69);
     TEST_ASSERT_EQUAL(69, PeekQueueInt(&list));
     TEST_ASSERT_EQUAL(1,  list.length);
+
+    
 }
 
 

@@ -42,7 +42,6 @@ void test_compare_trees(void) {
    TEST_ASSERT_EQUAL(CompareTrees(t1, t1), true);
    TEST_ASSERT_EQUAL(CompareTrees(t1, t2), false);
    TEST_ASSERT_EQUAL(CompareTrees(t1, t3), false);
-
 }
 
 int test_binary_tree(void) {
