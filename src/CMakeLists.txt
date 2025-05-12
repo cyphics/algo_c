@@ -8,6 +8,7 @@ add_library(
   ./quick_sort.c
   ./ringBuffer.c
   ./sorting.c
+  ./heap.c
 )
 
 target_include_directories(algo PUBLIC ${CMAKE_SOURCE_DIR}/include)

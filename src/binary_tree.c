@@ -8,11 +8,10 @@
 
 
 int NumChildren(BinaryNode *node) {
-    int left = 0;
-    int right = 0;
-    if (node->left != NULL) left = 1 + NumChildren(node->left);
-    if (node->right != NULL) right = 1 + NumChildren(node->right);
-    return left + right;
+    if (node == NULL) return 0;
+    int left = NumChildren(node->left);
+    int right = NumChildren(node->right);
+    return 1 + left + right;
 }
 
 void WalkNodePreorder(BinaryNode *node, RingBuffer *buffer ) {
@@ -29,7 +28,7 @@ void WalkTreePreorder(BinaryNode *node, RingBuffer *buffer) {
     WalkNodePreorder(node, buffer);
 }
 
-BinaryNode *GetNode(int value, BinaryNode *right, BinaryNode *left) {
+BinaryNode *GetNode(int value, BinaryNode *left, BinaryNode *right) {
     BinaryNode *node = malloc(sizeof(BinaryNode));
     node->right = right;
     node->left = left;

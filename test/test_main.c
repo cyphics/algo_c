@@ -16,4 +16,5 @@ int main(void) {
     test_linked_list();
     test_misc();
     test_binary_tree();
+    test_heap();
 }

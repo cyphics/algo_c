@@ -17,7 +17,7 @@ add_executable(UnitTests
   ./test_linked_list.c
   ./test_binary_tree.c
   ./test_misc.c
-  # ${TEST_FILES}
+  ./test_heap.c
 )
 
 set_target_properties(UnitTests PROPERTIES LINK_FLAGS -lcunit)
